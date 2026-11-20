@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A1A3A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -245,6 +248,7 @@ h1,h2,h3,p,ul,ol{margin:0}
 .form .chk-l input{width:22px;height:22px;min-height:0;accent-color:var(--gold)}
 .gh{font-size:16px;margin:16px 4px 8px;color:var(--ink)}
 .nav .btn{text-decoration:none;margin:0}
+.pen{color:var(--gold-d);opacity:.85;flex:none}
 .stp-r{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;font-size:14px}
 .stp{display:flex;align-items:center;gap:6px}
 .stp button{width:36px;height:36px;border-radius:11px;background:var(--soft);font-size:20px;font-weight:600;text-align:center;line-height:1}
@@ -559,14 +563,14 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 function defaults() {
-  return { v: 1, name: '', theme: 'auto', alerts: true, exam: '', dur: {}, custom: [], gmail: '', calDone: {}, ovr: {}, exams: [], done: {}, joker: {}, ratings: {}, claimed: {}, month: {}, rewards: DEFAULT_REWARDS.slice() };
+  return { v: 1, name: '', theme: 'auto', alerts: true, exam: '', dur: {}, custom: [], gmail: '', phone: '', calDone: {}, ovr: {}, exams: [], done: {}, joker: {}, ratings: {}, claimed: {}, month: {}, rewards: DEFAULT_REWARDS.slice() };
 }
 function load() {
   try { const r = localStorage.getItem(KEY); if (r) return Object.assign(defaults(), JSON.parse(r)); } catch (e) { }
   return defaults();
 }
 let S = load();
-function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } if (typeof queueSync === 'function') queueSync(); }
 
 /* ---------- time helpers ---------- */
 function t12(m) { const h = Math.floor(m / 60) % 24, mm = m % 60; return { t: (h % 12 || 12) + ':' + pad(mm), p: h < 12 ? 'ص' : 'م' }; }
@@ -721,6 +725,50 @@ function lifetimePoints() {
 function levelOf(p) { let L = LEVELS[0], next = null; for (let i = 0; i < LEVELS.length; i++) { if (p >= LEVELS[i][0]) { L = LEVELS[i]; next = LEVELS[i + 1] || null; } } return { n: L[1], from: L[0], next }; }
 function weekKey(d) { return keyOf(weekStart(d)); }
 
+/* ---------- native (Android) local notifications via Capacitor ---------- */
+const NATIVE = !!(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform());
+function LN() { return window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.LocalNotifications; }
+function buildNotifs() {
+  const out = []; let n = 1;
+  const add = (d, m, title, body) => { if (m < 0) return; out.push({ id: n++, title, body, schedule: { on: { weekday: d + 1, hour: Math.floor(m / 60), minute: m % 60 }, allowWhileIdle: true } }); };
+  DAY_ORDER.forEach(d => dayEvents(d).forEach(e => {
+    if (e.lesson) {
+      add(d, e.s - 30, 'بعد 30 دقيقة: ' + e.title, 'جهّز أدواتك. الدرس الساعة ' + ft(e.s));
+      if (e.out) add(d, e.s - TRANSIT, 'حان وقت الخروج', e.title + ' الساعة ' + ft(e.s));
+      else add(d, e.s - 5, e.title + ' بعد 5 دقائق', 'جهّز مكاناً هادئاً');
+    }
+    if (e.tag === 'en') add(d, e.s, 'وقت Podcast الإنجليزي', '15–20 دقيقة ممتعة');
+    if (e.tag === 'de') add(d, e.s, 'وقت الألماني', '10–15 دقيقة استماع وجمل');
+    if (e.tag === 'talk') add(d, e.s, 'وقت المحادثة', TALK[d] + ' لمدة 10–15 دقيقة');
+    if (e.tag === 'sleep') add(d, e.s - 15, 'موعد النوم بعد 15 دقيقة', 'أغلق الشاشات واستعد للنوم');
+  }));
+  const now = new Date();
+  upcomingExams(now).forEach(x => {
+    const dd = new Date(x.date + 'T00:00:00');
+    [7, 3, 1, 0].forEach(k => {
+      const at = new Date(dd.getFullYear(), dd.getMonth(), dd.getDate() - k, 9, 0);
+      if (at > now) out.push({ id: 90000 + (n++), title: (k === 0 ? 'اليوم: ' : k === 1 ? 'غداً: ' : 'بعد ' + k + ' أيام: ') + examLabel(x), body: 'راجع بهدوء ونم مبكراً', schedule: { at, allowWhileIdle: true } });
+    });
+  });
+  return out;
+}
+async function syncNotifs() {
+  if (!NATIVE) return; const p = LN(); if (!p) return;
+  try {
+    let perm = await p.checkPermissions();
+    if (perm.display !== 'granted') perm = await p.requestPermissions();
+    if (perm.display !== 'granted') return;
+    const pend = await p.getPending();
+    if (pend.notifications.length) await p.cancel({ notifications: pend.notifications.map(x => ({ id: x.id })) });
+    if (S.alerts) await p.schedule({ notifications: buildNotifs() });
+  } catch (e) { }
+}
+let _nt; function queueSync() { clearTimeout(_nt); _nt = setTimeout(syncNotifs, 800); }
+async function testNotif() {
+  const p = LN(); if (!p) return false;
+  try { await p.schedule({ notifications: [{ id: 99999, title: 'تجربة التنبيه', body: 'التنبيهات تعمل بنجاح', schedule: { at: new Date(Date.now() + 5000), allowWhileIdle: true } }] }); return true; } catch (e) { return false; }
+}
+
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
@@ -744,13 +792,21 @@ function beep() {
     o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.25);
   } catch (e) { }
 }
+function sysNotify(msg) {
+  try {
+    if (!('Notification' in window) || Notification.permission !== 'granted' || !document.hidden) return;
+    const o = { body: msg, icon: 'icon-192.png', vibrate: [200, 100, 200], tag: 'elite' };
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) navigator.serviceWorker.ready.then(r => r.showNotification('مخطط النخبة', o));
+    else new Notification('مخطط النخبة', o);
+  } catch (e) { }
+}
 let toastT = null;
 function toast(msg, quiet) {
   const t = $('#toast'); if (!t) return;
   t.innerHTML = ic('bell', 18) + '<span>' + esc(msg) + '</span>';
   t.classList.add('on');
   clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 5500);
-  if (!quiet) { try { navigator.vibrate && navigator.vibrate([180, 80, 180]); } catch (e) { } beep(); }
+  if (!quiet) { sysNotify(msg); try { navigator.vibrate && navigator.vibrate([180, 80, 180]); } catch (e) { } beep(); }
 }
 const fired = new Set();
 function checkAlerts(now) {
@@ -840,7 +896,7 @@ function rowHTML(e, isToday, nowS) {
   const x = t12(e.s);
   return '<button class="row k-' + e.kind + (cur ? ' cur' : '') + (past ? ' past' : '') + '" data-act="ev" data-k="' + e.k + '">' +
     '<span class="tm"><b>' + x.t + '</b><i>' + x.p + '</i>' + meta + '</span><span class="rail"><i></i></span>' +
-    '<span class="cd">' + badge(e) + '<span class="tx"><b>' + esc(e.title) + '</b><small>' + (e.fixed && e.lesson ? ft(e.s) + ' – ' + ft(e.e) : e.point ? KIND[e.kind] : KIND[e.kind]) + '</small></span>' + (cur ? '<em class="now">الآن</em>' : '') + '</span></button>';
+    '<span class="cd">' + badge(e) + '<span class="tx"><b>' + esc(e.title) + '</b><small>' + (e.fixed && e.lesson ? ft(e.s) + ' – ' + ft(e.e) : e.point ? KIND[e.kind] : KIND[e.kind]) + '</small></span>' + (e.fixed && (e.lesson || e.point) ? '<span class="pen" aria-hidden="true">' + ic('pen', 15) + '</span>' : '') + (cur ? '<em class="now">الآن</em>' : '') + '</span></button>';
 }
 function paintTL() {
   const box = $('#tl'); if (!box) return;
@@ -856,7 +912,9 @@ function viewToday() {
   let h = header('أهلاً ' + (S.name ? esc(S.name) : 'يا بطل'), DAY_NAME[td] + ' ' + now.getDate() + ' ' + MONTHS_AR[now.getMonth()]);
   h += dayChips(ui.day, 'day', td);
   h += ui.day === td ? '<div id="hero"></div>' : dayBrief(ui.day);
+  h += '<p class="note">اضغط على أي درس (عليه علامة القلم) لتعديل موعده أو مدته أو إخفائه.</p>';
   h += '<div class="tl" id="tl"></div>';
+  h += '<button class="btn ghost wide" data-act="addlesson" data-d="' + ui.day + '">' + ic('plus', 18) + ' إضافة درس في يوم ' + DAY_NAME[ui.day] + '</button>';
   if (ui.day === 5) h += '<p class="note">قد تُضاف دروس جديدة يوم الجمعة حسب مواعيد المدرسين. أضفها من <button class="lnk" data-act="addlesson">إضافة درس</button> وسيظهر مع تنبيهاته.</p>';
   return h;
 }
@@ -940,6 +998,15 @@ function viewLang() {
 }
 
 /* ---------- MORE ---------- */
+function permText() { try { if (!('Notification' in window)) return 'غير مدعومة'; return ({ granted: 'مفعّلة', denied: 'محظورة (فعّلها من إعدادات المتصفح)', default: 'غير مفعّلة' })[Notification.permission]; } catch (e) { return 'غير معروفة'; } }
+function waNumber(p) { let n = (p || '').replace(/\D/g, ''); if (n.indexOf('00') === 0) n = n.slice(2); else if (n.charAt(0) === '0') n = '20' + n.slice(1); return n; }
+async function diag() {
+  const chk = async u => { try { const r = await fetch(u, { cache: 'no-store' }); return r.ok; } catch (e) { return false; } };
+  const rows = [['manifest.webmanifest', await chk('manifest.webmanifest')], ['icon-192.png', await chk('icon-192.png')], ['icon-512.png', await chk('icon-512.png')], ['sw.js', await chk('sw.js')]];
+  let sw = false; try { sw = !!(navigator.serviceWorker && await navigator.serviceWorker.getRegistration()); } catch (e) { }
+  rows.push(['تسجيل Service Worker', sw]); rows.push(['اتصال آمن (https)', location.protocol === 'https:']);
+  openSheet('<h3>فحص التثبيت</h3>' + rows.map(r => '<div class="stp-r"><span dir="ltr">' + r[0] + '</span><b style="color:var(--' + (r[1] ? 'ok' : 'danger') + ')">' + (r[1] ? '✓ سليم' : '✗ ناقص') + '</b></div>').join('') + '<p class="why">لو ظهر أي عنصر ناقص: ارفع كل ملفات المجلد (وليس index.html فقط) في نفس مكان الصفحة، ثم افتح الرابط مرة أخرى. بعد ذلك تظهر خيار «تثبيت التطبيق» في Chrome.</p><button class="btn wide" data-act="sheetclose">تم</button>', 'diag');
+}
 function stepper(type) { return '<div class="stp"><button data-act="dur" data-t="' + type + '" data-v="-15" aria-label="أقل">−</button><b>' + fd(lessonDur(type)) + '</b><button data-act="dur" data-t="' + type + '" data-v="15" aria-label="أكثر">+</button></div>'; }
 function viewMore() {
   let h = '';
@@ -962,10 +1029,11 @@ function viewMore() {
       MONTH_PLAN.map((w, wi) => '<section class="card"><h3>' + w.t + '</h3>' + w.items.map((it, i) => '<button class="task slim' + (st[wi + '_' + i] ? ' ok' : '') + '" data-act="mon" data-w="' + wi + '" data-i="' + i + '"><span class="chk">' + ic('check', 16) + '</span><span class="tx"><b>' + it + '</b></span></button>').join('') + '</section>').join('');
   }
   if (ui.more === 'cal') {
+    const nat = NATIVE ? '<section class="card"><h3>تنبيهات التطبيق</h3><p>مفعّلة على هذا الهاتف وتعمل والتطبيق مغلق. تتحدث تلقائياً عند أي تعديل.</p><button class="btn sm" data-act="ntest">' + ic('bell', 16) + ' جرّب تنبيهاً بعد 5 ثوانٍ</button><p class="mut">لو لم تصل التنبيهات: الإعدادات ← التطبيقات ← مخطط النخبة ← السماح بالإشعارات والمنبهات والتذكيرات، وإيقاف تحسين البطارية.</p></section>' : '';
     const items = calItems(), left = items.filter(i => !S.calDone[i.k]).length; let grp = '';
-    return back + header('ربط التقويم', 'تنبيهات تصل والتطبيق مغلق') +
+    return back + header('ربط التقويم', 'تنبيهات تصل والتطبيق مغلق') + nat +
       '<section class="card form"><label>Gmail الخاص بالطالب<input type="email" inputmode="email" dir="ltr" data-set="gmail" value="' + esc(S.gmail) + '" placeholder="name@gmail.com"></label>' +
-      '<p class="mut">' + (validMail(S.gmail) ? 'سيُضاف هذا الإيميل كمدعو في كل حدث، فيصله في تقويمه.' : 'اكتب الإيميل ثم اضغط حفظ بالخروج من الخانة، وسيُضاف تلقائياً كمدعو.') + '</p></section>' +
+      '<p class="mut">' + (validMail(S.gmail) ? 'سيُضاف هذا الإيميل كمدعو في كل حدث، فيصله في تقويمه.' : 'اكتب الإيميل في الإعدادات (أو هنا) وسيُضاف تلقائياً كمدعو. بعد الكتابة ارجع لهذه الشاشة لتحديث الروابط.') + '</p></section>' +
       '<section class="card ins"><h3>الخطوات</h3><ol class="steps"><li>اضغط «أضف» بجانب كل درس. يفتح Google Calendar بالموعد والتكرار الأسبوعي.</li><li>اضغط «حفظ» داخل التقويم.</li><li>في تطبيق Google Calendar على هاتف الطالب: الإعدادات ← الإشعارات الافتراضية ← 30 دقيقة، فتصله تنبيهات قبل كل درس.</li></ol></section>' +
       '<button class="btn wide" data-act="calnext">' + ic('plus', 18) + ' أضف التالي (متبقٍّ ' + left + ')</button>' +
       items.map(i => { const h = i.grp !== grp ? '<h3 class="gh">' + i.grp + '</h3>' : ''; grp = i.grp; return h + '<div class="card nav"><span class="tx"><b>' + esc(i.t) + '</b><small>' + i.sub + '</small></span><a class="btn sm' + (S.calDone[i.k] ? ' ghost' : '') + '" data-cal="' + i.k + '" href="' + i.url + '" target="_blank" rel="noopener noreferrer">' + (S.calDone[i.k] ? 'تمت ✓' : 'أضف') + '</a></div>'; }).join('') +
@@ -988,8 +1056,13 @@ function viewMore() {
     const types = Object.keys(LESSON).filter(t => !LESSON[t].fixedDur);
     return back + header('الإعدادات', 'يحفظها التطبيق على هذا الهاتف') +
       '<section class="card form"><label>اسم الطالب<input data-set="name" value="' + esc(S.name) + '" placeholder="مثال: أحمد" maxlength="20"></label>' +
+      '<label>Gmail الخاص بالطالب<input type="email" inputmode="email" dir="ltr" data-set="gmail" value="' + esc(S.gmail) + '" placeholder="name@gmail.com"></label>' +
+      '<label>رقم الموبايل<input type="tel" inputmode="tel" dir="ltr" data-set="phone" value="' + esc(S.phone) + '" placeholder="01xxxxxxxxx"></label>' +
       '<label>المظهر<select data-set="theme"><option value="auto"' + (S.theme === 'auto' ? ' selected' : '') + '>تلقائي</option><option value="light"' + (S.theme === 'light' ? ' selected' : '') + '>فاتح</option><option value="dark"' + (S.theme === 'dark' ? ' selected' : '') + '>داكن</option></select></label>' +
       '<label class="chk-l"><input type="checkbox" data-set="alerts"' + (S.alerts ? ' checked' : '') + '> تنبيهات داخل التطبيق أثناء فتحه</label></section>' +
+      '<section class="card"><h3>الصلاحيات</h3><div class="stp-r"><span>الإشعارات: <b>' + permText() + '</b></span><button class="btn ghost sm" data-act="notif">تفعيل</button></div><p class="mut">تعمل الإشعارات والتطبيق مفتوح أو في الخلفية. للتنبيه وهو مغلق تماماً استخدم تقويم الهاتف (المزيد ← ربط التقويم).</p>' +
+      '<div class="stp-r"><span>إرسال جدول اليوم على واتساب</span><button class="btn ghost sm" data-act="wa">إرسال</button></div>' +
+      '<div class="stp-r"><span>فحص التثبيت على الهاتف</span><button class="btn ghost sm" data-act="diag">فحص</button></div></section>' +
       '<section class="card"><h3>مدة كل درس</h3><p class="mut">المدة الحالية ساعتان لكل درس. عدّلها عند الحاجة. الأونلاين ثابت من 10:30 إلى 11:30 م.</p>' +
       types.map(t => '<div class="stp-r"><span>' + LESSON[t].n + '</span>' + stepper(t) + '</div>').join('') + '</section>' +
       '<section class="card form"><h3>نصوص المكافآت</h3>' + [0, 1, 2].map(i => '<label>عند ' + Math.round(TIERS[i] * 100) + '%<input data-set="rw' + i + '" value="' + esc(S.rewards[i] || '') + '" maxlength="60"></label>').join('') + '</section>' +
@@ -1040,9 +1113,10 @@ function examSheet() {
     '<label>المادة<select id="ex-s"><option value="">كل المواد</option>' + SUBJECTS.map(s => '<option>' + s.n.replace(' (المدرسة)', '') + '</option>').join('') + '</select></label>' +
     '<label>التاريخ<input id="ex-d" type="date"></label></div><button class="btn wide" data-act="saveexam">حفظ الامتحان</button>', 'exam');
 }
-function addLessonSheet() {
+function addLessonSheet(day) {
+  if (day === undefined) day = 5;
   openSheet('<h3>إضافة درس جديد</h3><div class="form"><label>اسم الدرس<input id="al-t" placeholder="مثال: Math مع أ. محمد" maxlength="30"></label>' +
-    '<label>اليوم<select id="al-d">' + DAY_ORDER.map(d => '<option value="' + d + '"' + (d === 5 ? ' selected' : '') + '>' + DAY_NAME[d] + '</option>').join('') + '</select></label>' +
+    '<label>اليوم<select id="al-d">' + DAY_ORDER.map(d => '<option value="' + d + '"' + (d === day ? ' selected' : '') + '>' + DAY_NAME[d] + '</option>').join('') + '</select></label>' +
     '<label>الوقت<input id="al-s" type="time" value="16:00"></label>' +
     '<label>المدة<select id="al-u"><option value="30">30 دقيقة</option><option value="45">45 دقيقة</option><option value="60">ساعة</option><option value="90">ساعة ونصف</option><option value="120" selected>ساعتان</option></select></label>' +
     '<label class="chk-l"><input id="al-o" type="checkbox" checked> يحتاج انتقالاً (15 دقيقة)</label></div>' +
@@ -1113,7 +1187,7 @@ document.addEventListener('click', e => {
       const cur = lessonDur(D.t); S.dur[D.t] = clamp(cur + +D.v, 30, 180); save(); clearCache();
       if (ui.sheet && ui.sheet.indexOf('ev:') === 0) evSheet(ui.sheet.slice(3)); render(); break;
     }
-    case 'addlesson': addLessonSheet(); break;
+    case 'addlesson': addLessonSheet(D.d !== undefined ? +D.d : undefined); break;
     case 'addexam': examSheet(); break;
     case 'saveexam': {
       const d = $('#ex-d').value; if (!d) { toast('اختر تاريخ الامتحان', true); break; }
@@ -1136,6 +1210,16 @@ document.addEventListener('click', e => {
       if (ui.tab !== 'more') ui.tab = 'today'; render(); toast('تمت إضافة «' + title + '» إلى ' + DAY_NAME[day], true); break;
     }
     case 'delc': S.custom = S.custom.filter(c => String(c.id) !== D.id); save(); clearCache(); closeSheet(); render(); break;
+    case 'ntest': testNotif().then(ok => toast(ok ? 'سيصلك تنبيه التجربة بعد 5 ثوانٍ. اترك التطبيق مفتوحاً أو أغلقه' : 'تعذر إرسال التنبيه. اسمح بالإشعارات للتطبيق', true)); break;
+    case 'notif':
+      if (!('Notification' in window)) { toast('هذا المتصفح لا يدعم الإشعارات', true); break; }
+      Notification.requestPermission().then(p => toast(p === 'granted' ? 'تم تفعيل الإشعارات' : 'لم يتم السماح بالإشعارات من إعدادات المتصفح', true)); break;
+    case 'diag': diag(); break;
+    case 'wa': {
+      const n = waNumber(S.phone); if (n.length < 10) { toast('اكتب رقم الموبايل في الإعدادات أولاً', true); break; }
+      const d = new Date().getDay(), txt = 'جدول اليوم (' + DAY_NAME[d] + '):\n' + (dayEvents(d).filter(e => e.lesson).map(e => '• ' + e.title + ' ' + ft(e.s) + ' – ' + ft(e.e)).join('\n') || 'يوم مرن بلا دروس ثابتة') + '\nالنوم ' + ft(sleepAt(d));
+      window.open('https://wa.me/' + n + '?text=' + encodeURIComponent(txt), '_blank', 'noopener'); break;
+    }
     case 'pomo': pomoSheet(); break;
     case 'calnext': { const i = calItems().find(x => !S.calDone[x.k]); if (!i) { toast('أضفت كل المواعيد', true); break; } S.calDone[i.k] = true; save(); window.open(i.url, '_blank', 'noopener'); setTimeout(render, 400); break; }
     case 'pgo': if (P.run) { P.remain = pLeft(); P.run = false; } else { P.endAt = Date.now() + P.remain * 1000; P.run = true; } pomoSheet(); break;
@@ -1154,7 +1238,8 @@ document.addEventListener('change', e => {
   const k = el.dataset.set;
   if (k === 'name') S.name = el.value.trim();
   else if (k === 'exam') S.exam = el.value;
-  else if (k === 'gmail') { S.gmail = el.value.trim(); if (S.gmail && !validMail(S.gmail)) toast('الإيميل غير صحيح. تأكد من كتابته', true); save(); render(); return; }
+  else if (k === 'phone') S.phone = el.value.trim();
+  else if (k === 'gmail') { S.gmail = el.value.trim(); if (S.gmail && !validMail(S.gmail)) toast('الإيميل غير صحيح. تأكد من كتابته', true); save(); return; }
   else if (k === 'theme') { S.theme = el.value; applyTheme(); }
   else if (k === 'alerts') S.alerts = el.checked;
   else if (k.indexOf('rw') === 0) S.rewards[+k.slice(2)] = el.value.trim();
@@ -1167,7 +1252,7 @@ function boot() {
   $('#tabs').innerHTML = TABS.map(t => '<button role="tab" data-act="tab" data-v="' + t[0] + '">' + ic(t[2], 22) + '<span>' + t[1] + '</span></button>').join('');
   applyTheme();
   try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme); } catch (e) { }
-  render();
+  render(); queueSync();
   setTimeout(() => { const c = $('.row.cur'); if (c && !ui.scrolled) { ui.scrolled = true; c.scrollIntoView({ block: 'center' }); } }, 120);
   let tickN = 0;
   setInterval(() => {
@@ -1182,6 +1267,7 @@ function boot() {
 }
 
 boot();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
 </script>
 </body>
 </html>
