@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A1A3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مخطط النخبة">
+<title>مخطط النخبة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300..700&family=Reem+Kufi:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1A3A;--navy-2:#10275C;--navy-3:#1D3F86;
+  --gold:#D9B24C;--gold-2:#F0D58A;--gold-d:#8F6B12;
+  --bg:#F4F6FB;--surface:#FFFFFF;--ink:#0A1A3A;--ink-2:#55648A;--line:#E1E6F1;
+  --fixed-bg:#FCF3D6;--fixed-ink:#4F3806;
+  --study:#2B58C9;--study-bg:#E7EEFD;
+  --lang:#0F7F78;--lang-bg:#DCF2EF;
+  --soft:#EDF0F7;
+  --sleep:#5646B4;--sleep-bg:#EBE8FB;
+  --ok:#17935A;--danger:#C0392B;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#06112B;--surface:#0D2155;--ink:#F2F5FC;--ink-2:#A8B6D8;--line:#1F3875;
+  --fixed-bg:#3A2F0E;--fixed-ink:#F7E6AE;--gold-d:#E8C766;
+  --study:#9DB9FF;--study-bg:#14336F;--lang:#74DDD2;--lang-bg:#0E3B46;
+  --soft:#112A63;--sleep:#BDB3FF;--sleep-bg:#241E5C;--danger:#FF8A7A;color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#06112B;--surface:#0D2155;--ink:#F2F5FC;--ink-2:#A8B6D8;--line:#1F3875;
+  --fixed-bg:#3A2F0E;--fixed-ink:#F7E6AE;--gold-d:#E8C766;
+  --study:#9DB9FF;--study-bg:#14336F;--lang:#74DDD2;--lang-bg:#0E3B46;
+  --soft:#112A63;--sleep:#BDB3FF;--sleep-bg:#241E5C;--danger:#FF8A7A;color-scheme:dark;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Readex Pro',Tahoma,'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;text-align:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+h1,h2,h3,p,ul,ol{margin:0}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 120px}
+.ic{flex:none;display:block}
+.glyph{font-family:'Reem Kufi','Readex Pro',sans-serif;font-weight:700;font-size:17px;line-height:1;letter-spacing:0}
+.glyph.g3{font-size:12px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;padding:22px 2px 12px}
+.top .sub{color:var(--ink-2);font-size:13px}
+.top h1{font-family:'Reem Kufi','Readex Pro',sans-serif;font-size:28px;font-weight:700;line-height:1.25;color:var(--ink)}
+.seal{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--navy);background:linear-gradient(145deg,var(--gold-2),var(--gold));box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--gold)}
+.seal.big{width:52px;height:52px}
+
+/* chips */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;position:relative;padding:8px 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;font-weight:500;color:var(--ink-2)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip:disabled{opacity:.4}
+.tdot{position:absolute;top:5px;inset-inline-end:8px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* hero */
+.hero{margin:6px 0 18px;border-radius:30px 30px 30px 8px;padding:20px;color:#fff;background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M22 2 42 22 22 42 2 22Z' fill='none' stroke='%23D9B24C' stroke-opacity='.13'/%3E%3C/svg%3E"),
+  linear-gradient(160deg,#10275C 0%,#0A1A3A 70%);
+  border:1px solid rgba(217,178,76,.45)}
+.hero-top{display:flex;align-items:center;gap:18px}
+.rgw{position:relative;flex:none;display:grid;place-items:center}
+.rg-t{fill:none;stroke:rgba(255,255,255,.14);stroke-width:9}
+.rg-p{fill:none;stroke-width:9;stroke-linecap:round}
+.rg-p.gold{stroke:var(--gold)}
+.rg-p.teal{stroke:#4FD1C5}
+.rgc{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.rgc b{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.rgc b.sm{font-size:14px}
+.rgc small{font-size:12px;opacity:.7}
+.hero-tx{min-width:0}
+.lb{font-size:13px;color:var(--gold-2)}
+.hero-tx h2{font-family:'Reem Kufi','Readex Pro',sans-serif;font-size:27px;line-height:1.25;font-weight:700;margin:2px 0}
+.hs{font-size:14px;opacity:.85;margin-bottom:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12.5px}
+.pill.gold{background:var(--gold);color:var(--navy);font-weight:600}
+.hero-now{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(217,178,76,.4);display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center}
+.nw{font-size:12px;color:var(--gold-2)}
+.hero-now b{font-weight:500;font-size:15px}
+.bar{grid-column:1/-1;height:5px;border-radius:5px;background:rgba(255,255,255,.14);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:5px}
+.hero-ex{margin-top:12px}
+
+/* timeline */
+.tl{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:62px 22px 1fr;align-items:stretch;width:100%;padding:0}
+.tm{padding-top:12px;text-align:end;line-height:1.2;padding-inline-end:4px}
+.tm b{display:block;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.tm i{font-style:normal;font-size:11px;color:var(--ink-2)}
+.tm small{display:block;font-size:11px;color:var(--ink-2);margin-top:2px}
+.rail{position:relative;display:flex;justify-content:center}
+.rail::before{content:"";position:absolute;top:0;bottom:0;width:2px;background:var(--line)}
+.row:first-child .rail::before{top:18px}.row:last-child .rail::before{bottom:calc(100% - 18px)}
+.rail i{position:relative;margin-top:14px;width:12px;height:12px;border-radius:50%;background:var(--ink-2);border:3px solid var(--bg);box-sizing:content-box}
+.cd{display:flex;align-items:center;gap:12px;margin:5px 0;padding:10px 12px;border-radius:16px;background:var(--soft);border:1px solid transparent;min-width:0;position:relative}
+.cd .tx{min-width:0;flex:1}
+.cd b{display:block;font-weight:500;font-size:14.5px;line-height:1.35}
+.cd small{color:var(--ink-2);font-size:12px}
+.bd{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--surface);color:var(--ink-2)}
+.k-fixed .cd{background:var(--fixed-bg);border-color:var(--gold);box-shadow:inset -4px 0 0 var(--gold)}
+.k-fixed .cd b{font-weight:700;color:var(--fixed-ink);font-size:15.5px}
+.k-fixed .cd small{color:var(--fixed-ink);opacity:.8}
+.k-fixed .bd{background:var(--gold);color:var(--navy)}
+.k-fixed .rail i{background:var(--gold);width:14px;height:14px;margin-top:13px}
+.k-study .cd{background:var(--study-bg)}.k-study .bd{color:var(--study)}.k-study .rail i{background:var(--study)}
+.k-lang .cd{background:var(--lang-bg)}.k-lang .bd{color:var(--lang)}.k-lang .rail i{background:var(--lang)}
+.k-sleep .cd{background:var(--sleep-bg)}.k-sleep .bd{color:var(--sleep)}.k-sleep .rail i{background:var(--sleep)}
+.k-transit .cd{background:transparent;border:1px dashed var(--line);padding:6px 12px}
+.k-transit .bd{width:30px;height:30px;border-radius:9px;background:var(--soft)}
+.k-transit .cd b{font-size:13px;color:var(--ink-2)}
+.k-transit .rail i{width:8px;height:8px;margin-top:17px}
+.k-home .cd{background:transparent;border:1.5px solid var(--gold)}
+.k-home .bd{background:var(--gold);color:var(--navy)}
+.k-home .rail i{background:var(--gold)}
+.row.past .cd,.row.past .tm{opacity:.5}
+.row.cur .cd{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.now{font-style:normal;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--navy);color:var(--gold-2)}
+.note{margin:14px 4px;color:var(--ink-2);font-size:13px}
+.lnk{color:var(--gold-d);text-decoration:underline;font-weight:600;padding:0}
+
+/* cards */
+.card{display:block;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;margin:0 0 12px}
+.card h3{font-family:'Reem Kufi','Readex Pro',sans-serif;font-size:19px;font-weight:700;margin-bottom:6px}
+.card p{color:var(--ink-2);font-size:14px}
+.card.ins{background:var(--navy);border-color:rgba(217,178,76,.4);color:#fff}
+.card.ins p{color:#C9D3EC}.card.ins b{color:var(--gold-2)}.card.ins h3{color:var(--gold-2)}
+.brief{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mut{color:var(--ink-2);font-size:13px;margin:4px 0 8px}
+.load{flex:none;font-size:12px;font-weight:600;padding:3px 11px;border-radius:999px}
+.load.l0{background:var(--lang-bg);color:var(--lang)}.load.l1{background:var(--study-bg);color:var(--study)}.load.l2{background:var(--fixed-bg);color:var(--fixed-ink)}.load.l3{background:var(--navy);color:var(--gold-2)}
+.lb-list{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.lbr{display:grid;grid-template-columns:78px 1fr 58px;gap:10px;align-items:center;font-size:13px}
+.lbr em{font-style:normal;color:var(--ink-2);text-align:end;font-size:12px}
+.lbar{height:9px;border-radius:9px;background:rgba(127,140,170,.25);overflow:hidden}
+.lbar i{display:block;height:100%;border-radius:9px;background:var(--gold)}
+.lbar i.l0{background:var(--lang)}.lbar i.l1{background:var(--study)}.lbar i.l2{background:var(--gold)}.lbar i.l3{background:var(--gold-2)}
+.card.ins .lbar i.l1{background:#7EA2FF}
+.wk{text-align:start}
+.wk.today{border-color:var(--gold);box-shadow:inset -4px 0 0 var(--gold)}
+.wk-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.wk-h b{font-family:'Reem Kufi','Readex Pro',sans-serif;font-size:19px}
+.wk-c{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.mini{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;padding:3px 10px;border-radius:9px;background:var(--fixed-bg);color:var(--fixed-ink);font-weight:500}
+.mini.soft{background:var(--soft);color:var(--ink-2)}
+.mini.home{background:transparent;border:1px solid var(--gold)}
+.wk small{color:var(--ink-2);font-size:12px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin:4px 4px 0;font-size:12px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.lg{width:12px;height:12px;border-radius:4px;display:inline-block}
+.lg.fixed{background:var(--gold)}.lg.study{background:var(--study)}.lg.lang{background:var(--lang)}.lg.rest{background:var(--ink-2);opacity:.5}.lg.sleep{background:var(--sleep)}
+
+/* segmented */
+.seg{display:flex;gap:4px;padding:4px;background:var(--soft);border-radius:14px;margin-bottom:14px}
+.seg button{flex:1;padding:9px 6px;border-radius:10px;font-weight:500;font-size:14px;text-align:center;color:var(--ink-2)}
+.seg button.on{background:var(--navy);color:var(--gold-2)}
+.seg button:disabled{opacity:.45}
+.seg.sm{margin:12px 0}
+
+/* score */
+.score{display:flex;align-items:center;gap:16px}
+.rgw.s .rg-t{stroke:rgba(127,140,170,.25);stroke-width:8}.rgw.s .rg-p{stroke-width:8}
+.rgw.s .rg-p.gold{stroke:var(--gold)}
+.rgw.s .rgc b{font-size:22px;color:var(--ink)}.rgw.s .rgc small{color:var(--ink-2);opacity:1}
+.score h3{margin-bottom:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;background:var(--navy);color:var(--gold-2);font-weight:600;border:1px solid var(--navy)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{padding:6px 13px;font-size:13px;border-radius:11px;margin-top:8px}
+.btn.wide{width:100%;margin:6px 0 12px}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.on{background:var(--fixed-bg);color:var(--fixed-ink);border-color:var(--gold)}
+.btn:disabled{opacity:.5}
+.tasks{display:flex;flex-direction:column;gap:9px}
+.tasks.dim{opacity:.5}
+.task{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border-radius:18px;background:var(--surface);border:1px solid var(--line)}
+.task .tx{flex:1;min-width:0}.task b{display:block;font-weight:500;font-size:15px}.task small{color:var(--ink-2);font-size:12px}
+.chk{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:transparent;transition:transform .18s,background .18s}
+.task .bd{background:var(--soft)}
+.pts{flex:none;font-size:13px;font-weight:600;color:var(--gold-d)}
+.task.ok{background:var(--fixed-bg);border-color:var(--gold)}
+.task.ok .chk{background:var(--gold);border-color:var(--gold);color:var(--navy);transform:scale(1.08)}
+.task.ok .tx b{text-decoration:line-through;text-decoration-color:var(--gold-d)}
+.task.slim{padding:9px 10px;border-radius:14px;margin-top:8px}
+.task.slim b{font-size:14px}
+@media (prefers-reduced-motion:reduce){.chk{transition:none}}
+
+/* bars */
+.bars{display:flex;gap:8px;align-items:flex-end;height:150px;margin-top:14px}
+.bc{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%}
+.bc.fut{opacity:.4}
+.bt{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center;border-radius:10px;background:var(--soft);overflow:hidden;position:relative}
+.bt i{display:block;width:100%;background:var(--study);border-radius:8px}
+.bt i.hi{background:linear-gradient(180deg,var(--gold-2),var(--gold))}
+.bt u{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;text-decoration:none;color:var(--ink-2)}
+.bc span{font-size:11px;color:var(--ink-2);white-space:nowrap}
+.tip{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--fixed-bg);color:var(--fixed-ink)!important;font-size:13.5px}
+.rate{display:flex;align-items:center;justify-content:space-between;margin:6px 0}
+.stars{display:flex;gap:2px}.stars button{padding:3px;color:var(--line)}.stars button.on{color:var(--gold)}.stars button.on svg{fill:var(--gold)}
+.tier{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;border:1px dashed var(--line);margin:10px 0}
+.tier.ok{border:1px solid var(--gold);background:var(--fixed-bg)}
+.tp{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:var(--soft);color:var(--ink-2)}
+.tier.ok .tp{background:var(--gold);color:var(--navy)}
+.tier .tt{flex:1;min-width:0}.tier .tt b{display:block;font-weight:500;font-size:14px;color:var(--ink)}.tier .tt small{color:var(--ink-2);font-size:12px}
+.tier.ok .tt b,.tier.ok .tt small{color:var(--fixed-ink)}
+.lock{color:var(--ink-2);opacity:.6}
+.lv-h{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.bar.big{height:9px;background:rgba(127,140,170,.25)}
+
+/* languages & lists */
+.phrase{text-align:center;background:var(--navy);border-color:rgba(217,178,76,.45);color:#fff}
+.phrase .mut,.phrase p{color:#C9D3EC}
+.phrase h2{font-size:25px;color:var(--gold-2);margin:6px 0;font-weight:600}
+.phrase small{display:block;margin-top:8px;color:#9FB0D8;font-size:12.5px}
+.wkl{display:flex;gap:10px;padding:8px 10px;border-radius:12px;font-size:13px}
+.wkl b{flex:none;width:68px;font-weight:600}.wkl span{color:var(--ink-2)}
+.wkl.today{background:var(--fixed-bg)}.wkl.today span{color:var(--fixed-ink)}
+.steps{padding-inline-start:20px;color:var(--ink-2);font-size:14px;display:flex;flex-direction:column;gap:6px}
+.dots{padding-inline-start:18px;color:var(--ink-2);font-size:14px;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.dots li::marker{color:var(--gold)}
+.src,.nav{display:flex;align-items:center;gap:12px;width:100%;text-decoration:none;color:inherit}
+.src{padding:10px 0;border-top:1px solid var(--line)}.src:first-of-type{border-top:0}
+.src .bd,.nav .bd,.acc .bd{background:var(--fixed-bg);color:var(--fixed-ink)}
+.src small,.nav small,.acc small{display:block;color:var(--ink-2);font-size:12.5px;line-height:1.5}
+.tx{min-width:0}.tx b{display:block;font-weight:500}
+.nav svg:last-child{color:var(--ink-2);transform:scaleX(-1)}
+.back{display:flex;align-items:center;gap:6px;padding:14px 2px 0;color:var(--gold-d);font-weight:600}
+.back svg{transform:scaleX(1)}
+.acc summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none}
+.acc summary::-webkit-details-marker{display:none}
+.ibtn{flex:none;padding:8px;border-radius:10px;color:var(--danger)}
+.form{display:flex;flex-direction:column;gap:12px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-2)}
+.form input,.form select{padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:15px;min-height:46px}
+.form .chk-l{flex-direction:row;align-items:center;gap:10px;color:var(--ink)}
+.form .chk-l input{width:22px;height:22px;min-height:0;accent-color:var(--gold)}
+.gh{font-size:16px;margin:16px 4px 8px;color:var(--ink)}
+.nav .btn{text-decoration:none;margin:0}
+.stp-r{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;font-size:14px}
+.stp{display:flex;align-items:center;gap:6px}
+.stp button{width:36px;height:36px;border-radius:11px;background:var(--soft);font-size:20px;font-weight:600;text-align:center;line-height:1}
+.stp b{min-width:64px;text-align:center;font-weight:600}
+
+/* nav & fab */
+.tabs{position:fixed;inset-inline:0;bottom:0;z-index:20;display:flex;justify-content:center;background:var(--navy);border-top:1px solid rgba(217,178,76,.5);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabs>div{display:flex;width:100%;max-width:560px}
+.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;color:#97A7CF;font-size:11.5px;border-radius:12px;position:relative}
+.tabs button.on{color:var(--gold-2)}
+.tabs button.on::before{content:"";position:absolute;top:-7px;width:26px;height:3px;border-radius:3px;background:var(--gold)}
+.fab{display:none;position:fixed;z-index:19;inset-inline-start:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:linear-gradient(145deg,var(--gold-2),var(--gold));color:var(--navy);font-weight:700;box-shadow:0 8px 20px rgba(10,26,58,.35)}
+body[data-tab="today"] .fab{display:flex}
+
+/* sheet & toast */
+.sb{position:fixed;inset:0;z-index:40;background:rgba(5,12,30,.55);display:none;align-items:flex-end;justify-content:center}
+.sb.on{display:flex}
+.sheet{width:100%;max-width:560px;max-height:88vh;overflow:auto;background:var(--surface);border-radius:26px 26px 0 0;padding:10px 18px calc(20px + env(safe-area-inset-bottom,0px));animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.sheet{animation:none}}
+.grab{width:40px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 14px}
+.sheet h3{font-family:'Reem Kufi','Readex Pro',sans-serif;font-size:21px;margin-bottom:8px}
+.sh-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sh-h .bd{background:var(--fixed-bg);color:var(--fixed-ink);width:48px;height:48px}
+.sh-h p{color:var(--ink-2);font-size:13px}
+.why{padding:12px 14px;border-radius:14px;background:var(--soft);color:var(--ink);font-size:14px;margin:8px 0 12px;line-height:1.8}
+.pm{margin:6px auto 8px;width:168px;height:168px}
+.pm .rgc b{font-size:38px}.pm .rg-t{stroke:rgba(127,140,170,.25)}.pm .rgc b{color:var(--ink)}.pm .rgc small{color:var(--ink-2);opacity:1;font-size:13px}
+.pm-dots{display:flex;gap:8px;justify-content:center;margin:6px 0}
+.pm-dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}.pm-dots i.on{background:var(--gold)}
+.pm-btns{display:flex;gap:10px}.pm-btns .btn{flex:1}
+.toast{position:fixed;z-index:50;inset-inline:16px;top:calc(12px + env(safe-area-inset-top,0px));max-width:528px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:16px;background:var(--navy);color:#fff;border:1px solid var(--gold);transform:translateY(-140%);transition:transform .25s;font-size:14px}
+.toast.on{transform:none}.toast svg{color:var(--gold)}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media (min-width:700px){body{background:linear-gradient(180deg,var(--bg),var(--bg))}}
+
+</style>
+</head>
+<body data-tab="today">
+<div class="wrap"><main id="view"></main></div>
+<button class="fab" data-act="pomo" aria-label="جلسة تركيز"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 1.5M9.5 2.5h5"/></svg>تركيز</button>
+<nav class="tabs" role="tablist" aria-label="التنقل"><div id="tabs"></div></nav>
+<div class="sb" id="sb" data-act="sheetclose"><div class="sheet" id="sh" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const H = (h, m = 0) => h * 60 + m;
+const TRANSIT = 15;
+const DAY_ORDER = [6, 0, 1, 2, 3, 4, 5];
+const DAY_NAME = { 6: 'السبت', 0: 'الأحد', 1: 'الاثنين', 2: 'الثلاثاء', 3: 'الأربعاء', 4: 'الخميس', 5: 'الجمعة' };
+
+const LESSON = {
+  arabic: { n: 'درس اللغة العربية', short: 'عربي', ic: 'ع', dur: 120, out: true },
+  gym: { n: 'الجيم', short: 'الجيم', ic: 'dumbbell', dur: 120, out: true },
+  social: { n: 'الدراسات الاجتماعية', short: 'دراسات', ic: 'globe', dur: 120, out: true },
+  online: { n: 'عربي Online', short: 'عربي Online', ic: 'laptop', dur: 60, out: false, fixedDur: true },
+  science: { n: 'Science', short: 'Science', ic: 'flask', dur: 120, out: true },
+  math: { n: 'Math', short: 'Math', ic: 'calc', dur: 120, out: true },
+  german: { n: 'اللغة الألمانية', short: 'ألماني', ic: 'DE', dur: 120, out: true },
+  english: { n: 'اللغة الإنجليزية', short: 'إنجليزي', ic: 'EN', dur: 120, out: true },
+  plus: { n: 'English Plus', short: 'English Plus', ic: 'EN+', dur: 120, out: true }
+};
+
+const SAT = [['arabic', H(11)], ['gym', H(14)], ['home', H(16, 30)], ['social', H(19, 15)], ['online', H(22, 30)]];
+const SUN = [['science', H(14)], ['math', H(17)]];
+const FIXED = {
+  6: SAT, 2: SAT, 0: SUN, 3: SUN,
+  1: [['german', H(11, 30)], ['english', H(13, 30)], ['home', H(16)], ['plus', H(20)]],
+  4: [['english', H(13, 30)], ['home', H(16)], ['plus', H(20)]],
+  5: []
+};
+const SLEEP_AT = { 6: H(23, 45), 2: H(23, 45), 0: H(23, 30), 1: H(23, 30), 3: H(23, 30), 4: H(23, 30), 5: H(23, 30) };
+
+const W = {
+  lesson: 'موعد ثابت من جدولك. المدة ساعتان ويمكنك تعديل الموعد والمدة من هنا.',
+  online: 'ينتهي 11:30 م، لذلك موعد النوم في هذا اليوم 11:45 م. لا مهام بعد الدرس.',
+  home: 'لا مذاكرة ولا مهام فور الوصول: أول ساعة للأكل والراحة.',
+  transit: 'وقت الانتقال التقريبي 15 دقيقة. اخرج في موعده لتصل مرتاحاً دون استعجال.',
+  wake: 'أول 45 دقيقة للفطار والماء وبداية هادئة بلا مذاكرة. الاستيقاظ 9:00 يعطيك نوماً كافياً (9 ساعات أو أكثر).',
+  pod: 'أذنك تكون صافية في الصباح. 15–20 دقيقة فقط، وفي آخرها كرّر جملتين بنفس النطق والإيقاع (Shadowing).',
+  prep: 'وقت احتياطي مقصود: تجهيز الشنطة وكوب ماء بلا استعجال.',
+  prep2: 'نصف ساعة احتياطية قبل الدرس: وجبة خفيفة وتجهيز.',
+  shortRest: 'راحة حقيقية بين جلستين: ابتعد عن الشاشة وتحرّك قليلاً.',
+  lunch: 'بعد الدرس تحتاج غداء وصلاة وراحة. لا مذاكرة هنا.',
+  prega: 'وجبة خفيفة قبل الجيم بنحو 45 دقيقة: كربوهيدرات خفيفة مع بروتين (موز، زبادي، ساندوتش صغير). تجنب الوجبة الثقيلة.',
+  afterGym: 'شاور وملابس نظيفة ثم العودة. لا مهام في هذا الوقت.',
+  postgym: 'بروتين وكربوهيدرات وماء خلال ساعة بعد التمرين لتعويض الطاقة، مع راحة تامة.',
+  arRev: 'مراجعة درس اليوم في نفس يومه: جلسة 20 دقيقة + راحة 5 + جلسة 20. اقفل الكتاب واكتب ما تذكره بكلماتك (استرجاع نشط).',
+  dinner: 'عشاء ثم راحة قبل الدرس التالي.',
+  de: '10–15 دقيقة استماع لمحتوى بسيط، ثم 3 جمل يومية تكررها بصوت مرتفع.',
+  deTalk: 'محادثة ألمانية بسيطة 10–15 دقيقة: عرّف نفسك، تكلم عن يومك، كرّر الجمل بصوت مرتفع.',
+  enTalk: 'محادثة إنجليزية 10–15 دقيقة بصوت عالٍ، وسجّل صوتك لتقارن نطقك بعد أسابيع.',
+  free: 'لا نملأ كل دقيقة بالمهام. هذا الوقت مقصود للراحة والهوايات والعائلة.',
+  onlinePrep: 'ماء، مكان هادئ، وإضاءة جيدة قبل الأونلاين.',
+  windDown: 'ابتعد عن الشاشات واستعد للنوم. النوم الكافي جزء من التفوق.',
+  sleep: 'النوم الكافي (8–10 ساعات) أهم من أي مذاكرة إضافية. الأولوية دائماً للنوم.',
+  sciMorning: 'الصباح الفارغ أفضل وقت لتركيز المواد العلمية. جلستان 25 دقيقة بينهما 10 دقائق راحة، وتحل الواجب قبل الدرس فتسأل المدرس عما تعثرت فيه.',
+  move: 'حركة خفيفة 15–20 دقيقة (مشي أو تمدد) تنشّط الجسم في الأيام التي لا جيم فيها.',
+  snack: 'وجبة خفيفة وراحة بعد الدرس.',
+  sciRev: 'استرجاع سريع لـ Science في نفس يوم الدرس (25 دقيقة): اشرح ما فهمته لنفسك ثم حل أسئلة نهاية الدرس.',
+  mathRev: 'استرجاع Math في نفس يوم الدرس (25 دقيقة): أعد حل مسألتين من الدرس بدون النظر للحل.',
+  langRev: 'راجع ما شُرح اليوم في الإنجليزي والألماني: 20 دقيقة لكل مادة مع راحة قصيرة بينهما.',
+  enRev: 'استرجاع إنجليزي لدرس اليوم: مفردات جديدة ثم جملة أو جملتان تكتبهما بنفسك.',
+  flex: 'وقت مرن للوجبة والراحة. قد تكون في الخارج بعد الدرس، فلا نضع مهاماً هنا.',
+  postReturn: 'وجبة وراحة بعد العودة. لا مذاكرة قبل ساعة من الوصول.',
+  thuHw: 'جلستان 25 دقيقة لاستكمال أي واجبات متأخرة قبل يوم الجمعة، فيبدأ الأسبوع القادم نظيفاً.',
+  friFree: 'يوم الجمعة مرن: نشاط عائلي أو خروج أو هواية.',
+  weekRev: 'مراجعة أسبوعية خفيفة (جلستان 25 دقيقة): اختبر نفسك في أخطاء الأسبوع بدلاً من إعادة القراءة.',
+  weekEval: 'خمس دقائق لمراجعة الـ Checklist وشاشة «الأسبوع» وتحديد نقطة تحسين واحدة للأسبوع القادم.'
+};
+
+// [start, dur, kind, title, icon, why, tag]
+const _wake = [H(9), 45, 'meal', 'استيقاظ وفطار', 'sun', W.wake, 'wake'];
+const _pod = [H(9, 45), 20, 'lang', 'Podcast إنجليزي', 'headphones', W.pod, 'en'];
+const _sleepBlocks = (at, w = 30) => [[at - w, w, 'sleep', 'تهدئة وتجهيز للنوم', 'moon', W.windDown], [at, 0, 'sleep', 'النوم', 'moon', W.sleep, 'sleep']];
+
+const SAT_FLEX = [
+  _wake, _pod,
+  [H(10, 5), 15, 'lang', 'ألماني: استماع وجمل', 'DE', W.de, 'de'],
+  [H(10, 20), 25, 'rest', 'تجهيز وراحة', 'cup', W.prep],
+  [H(13), 45, 'meal', 'غداء خفيف قبل الجيم', 'meal', W.prega],
+  [H(16), 30, 'transit', 'شاور والعودة', 'home', W.afterGym],
+  [H(16, 30), 75, 'meal', 'وجبة بعد التمرين وراحة', 'meal', W.postgym],
+  [H(17, 45), 45, 'study', 'مراجعة عربي (استرجاع)', 'ع', W.arRev],
+  [H(18, 30), 30, 'rest', 'راحة وتجهيز', 'cup', W.prep2],
+  [H(21, 15), 60, 'meal', 'عشاء وراحة', 'meal', W.dinner],
+  [H(22, 15), 15, 'rest', 'تجهيز للأونلاين', 'laptop', W.onlinePrep],
+  ..._sleepBlocks(H(23, 45), 15)
+];
+
+const SUN_FLEX = (talk) => [
+  _wake, _pod,
+  [H(10, 5), 10, 'rest', 'راحة قصيرة', 'cup', W.shortRest],
+  [H(10, 15), 60, 'study', 'واجبات وتسميع Math وScience', 'pen', W.sciMorning],
+  [H(11, 15), 15, 'rest', 'راحة', 'cup', W.shortRest],
+  [H(11, 30), 15, 'lang', 'ألماني: استماع وجمل', 'DE', W.de, 'de'],
+  [H(11, 45), 30, 'rest', 'حركة خفيفة (مشي أو تمدد)', 'walk', W.move],
+  [H(12, 15), 75, 'meal', 'غداء وصلاة وراحة', 'meal', W.lunch],
+  [H(13, 30), 15, 'rest', 'تجهيز', 'cup', W.prep],
+  [H(16), 45, 'meal', 'وجبة خفيفة وراحة', 'meal', W.snack],
+  [H(19), 45, 'meal', 'عشاء وراحة', 'meal', W.dinner],
+  [H(19, 45), 25, 'study', 'استرجاع Science (نفس اليوم)', 'flask', W.sciRev],
+  [H(20, 10), 10, 'rest', 'راحة', 'cup', W.shortRest],
+  [H(20, 20), 25, 'study', 'استرجاع Math (نفس اليوم)', 'calc', W.mathRev],
+  ...(talk
+    ? [[H(20, 45), 15, 'free', 'وقت حر', 'star', W.free],
+       [H(21), 15, 'lang', 'محادثة إنجليزي وتسجيل صوتك', 'mic', W.enTalk, 'talk'],
+       [H(21, 15), 105, 'free', 'وقت حر وترفيه', 'star', W.free]]
+    : [[H(20, 45), 135, 'free', 'وقت حر وترفيه', 'star', W.free]]),
+  ..._sleepBlocks(H(23, 30))
+];
+
+const MON_FLEX = [
+  _wake, _pod,
+  [H(10, 5), 10, 'rest', 'راحة قصيرة', 'cup', W.shortRest],
+  [H(10, 15), 15, 'lang', 'محادثة ألمانية', 'mic', W.deTalk, 'talk'],
+  [H(10, 30), 45, 'rest', 'تجهيز وراحة', 'cup', W.prep],
+  [H(15, 30), 30, 'meal', 'غداء متأخر خفيف', 'meal', W.lunch],
+  [H(16), 60, 'rest', 'راحة بعد العودة', 'cup', W.postReturn],
+  [H(17), 45, 'study', 'مراجعة إنجليزي وألماني', 'repeat', W.langRev],
+  [H(17, 45), 90, 'free', 'وقت حر وحركة خفيفة', 'walk', W.free],
+  [H(19, 15), 30, 'meal', 'عشاء خفيف', 'meal', W.dinner],
+  [H(22), 60, 'free', 'استرخاء', 'star', W.free],
+  ..._sleepBlocks(H(23, 30))
+];
+
+const THU_FLEX = [
+  _wake, _pod,
+  [H(10, 5), 15, 'rest', 'راحة قصيرة', 'cup', W.shortRest],
+  [H(10, 20), 15, 'lang', 'محادثة إنجليزي وتسجيل صوتك', 'mic', W.enTalk, 'talk'],
+  [H(10, 35), 15, 'rest', 'راحة', 'cup', W.shortRest],
+  [H(10, 50), 60, 'study', 'واجبات الأسبوع المتأخرة', 'pen', W.thuHw],
+  [H(11, 50), 10, 'rest', 'راحة', 'cup', W.shortRest],
+  [H(12), 15, 'lang', 'ألماني: استماع وجمل', 'DE', W.de, 'de'],
+  [H(12, 15), 60, 'meal', 'غداء وصلاة', 'meal', W.lunch],
+  [H(15, 30), 30, 'meal', 'غداء متأخر خفيف', 'meal', W.lunch],
+  [H(16), 60, 'rest', 'راحة بعد العودة', 'cup', W.postReturn],
+  [H(17), 30, 'study', 'مراجعة إنجليزي (استرجاع)', 'EN', W.enRev],
+  [H(17, 30), 120, 'free', 'وقت حر وحركة خفيفة', 'walk', W.free],
+  [H(19, 30), 15, 'meal', 'عشاء خفيف', 'meal', W.dinner],
+  [H(22), 60, 'free', 'استرخاء', 'star', W.free],
+  ..._sleepBlocks(H(23, 30))
+];
+
+const FRI_FLEX = [
+  _wake, _pod,
+  [H(10, 5), 25, 'rest', 'راحة', 'cup', W.shortRest],
+  [H(10, 30), 15, 'lang', 'محادثة ألمانية', 'mic', W.deTalk, 'talk'],
+  [H(10, 45), 105, 'free', 'وقت حر ونشاط', 'star', W.friFree],
+  [H(12, 30), 90, 'meal', 'غداء عائلي', 'meal', W.lunch],
+  [H(14), 90, 'rest', 'راحة وترفيه', 'cup', W.free],
+  [H(15, 30), 60, 'study', 'مراجعة أسبوعية', 'repeat', W.weekRev],
+  [H(16, 30), 20, 'study', 'تقييم الأسبوع', 'chart', W.weekEval],
+  [H(16, 50), 370, 'free', 'وقت عائلي وترفيه', 'star', W.friFree],
+  ..._sleepBlocks(H(23, 30))
+];
+
+const FLEX = { 6: SAT_FLEX, 2: SAT_FLEX, 0: SUN_FLEX(true), 3: SUN_FLEX(false), 1: MON_FLEX, 4: THU_FLEX, 5: FRI_FLEX };
+
+const TALK = { 0: 'إنجليزي', 1: 'ألماني', 4: 'إنجليزي', 5: 'ألماني' };
+const TASKS = [
+  { id: 'attend', t: 'حضور الدروس', pts: 10, ic: 'book', cat: 'routine' },
+  { id: 'hw', t: 'إنجاز الواجبات', pts: 15, ic: 'pen', cat: 'hw' },
+  { id: 'rev', t: 'مراجعة المواد', pts: 20, ic: 'repeat', cat: 'study' },
+  { id: 'en', t: 'Podcast إنجليزي', pts: 10, ic: 'headphones', cat: 'lang' },
+  { id: 'de', t: 'ألماني 10–15 دقيقة', pts: 10, ic: 'DE', cat: 'lang' },
+  { id: 'talk', t: 'تدريب المحادثة', pts: 10, ic: 'mic', cat: 'lang' },
+  { id: 'sport', t: 'الرياضة', pts: 15, ic: 'dumbbell', cat: 'sport' },
+  { id: 'sleep', t: 'النوم في الموعد', pts: 10, ic: 'moon', cat: 'routine' }
+];
+const CATS = {
+  study: { n: 'المذاكرة', tip: 'جرّب جلسة استرجاع واحدة قصيرة (20 دقيقة) في نفس يوم الدرس.' },
+  hw: { n: 'الواجبات', tip: 'ابدأ بأسهل واجب ثم الأصعب، وخصّص الخميس لاستكمال المتأخر.' },
+  lang: { n: 'اللغات', tip: 'ضع الـ Podcast مع شيء تفعله كل يوم مثل الفطار، وخليه عادة ممتعة.' },
+  sport: { n: 'الرياضة', tip: 'حتى 15 دقيقة مشي أو تمدد في الأيام بلا جيم تُحسب.' },
+  routine: { n: 'الروتين', tip: 'ثبّت وقت النوم أولاً، فهو يرفع تركيزك في كل شيء آخر.' }
+};
+
+const SUBJECTS = [
+  { id: 'arabic', n: 'اللغة العربية', ic: 'ع', when: 'السبت والثلاثاء + أونلاين',
+    pts: ['بعد كل درس: 20 دقيقة. اقفل الكتاب واكتب ملخص الدرس بكلماتك (استرجاع نشط).', 'في النحو: اكتب 3 جمل من عندك لكل قاعدة جديدة.', 'في النصوص: اقرأ بصوت مرتفع ثم اشرح الفكرة الرئيسية لشخص من أسرتك.', 'الجمعة: اختبر نفسك في 5 أسئلة من الأسبوع.'] },
+  { id: 'social', n: 'الدراسات الاجتماعية', ic: 'globe', when: 'السبت والثلاثاء',
+    pts: ['خريطة ذهنية صفحة واحدة لكل درس بعد الدرس مباشرة.', 'بطاقات (Flashcards) للتواريخ والمصطلحات والأماكن، وراجعها 5 دقائق يومياً.', 'ارسم خطاً زمنياً للأحداث المهمة في الوحدة.', 'سمّع الدرس شفهياً لشخص من أسرتك قبل نهاية الأسبوع.'] },
+  { id: 'math', n: 'Math', ic: 'calc', when: 'الأحد والأربعاء',
+    pts: ['حل واجب الدرس قبل الدرس التالي، وسجّل ما لم تفهمه لتسأل عنه.', 'بعد الدرس: أعد حل مسألتين بدون النظر للحل (25 دقيقة).', 'دفتر أخطاء: اكتب المسألة التي أخطأت فيها وسبب الخطأ والحل الصحيح.', 'لا تكتفِ بقراءة الحل: الفهم يأتي من الحل بنفسك. راجع القوانين كل جمعة.'] },
+  { id: 'science', n: 'Science', ic: 'flask', when: 'الأحد والأربعاء',
+    pts: ['اشرح المفهوم لنفسك بصوت مرتفع أو ارسمه بدون النظر للكتاب.', 'حل أسئلة نهاية الدرس في نفس اليوم.', 'اصنع جدولاً صغيراً بالقوانين والوحدات والمصطلحات.', 'اربط كل مفهوم بمثال من الحياة اليومية فيثبت أكثر.'] },
+  { id: 'english', n: 'اللغة الإنجليزية (المدرسة)', ic: 'EN', when: 'الاثنين والخميس + Plus',
+    pts: ['5 مفردات جديدة بعد كل درس، مع جملة تكتبها أنت لكل كلمة.', 'اكتب فقرة قصيرة (5 جمل) أسبوعياً عن موضوع من الوحدة.', 'ادمج الـ Podcast اليومي: كلمة أو تعبير واحد تستخدمه في المحادثة.', 'قبل الامتحان: راجع أخطائك السابقة في الكتابة.'] },
+  { id: 'german', n: 'اللغة الألمانية (المدرسة)', ic: 'DE', when: 'الاثنين',
+    pts: ['5 كلمات جديدة يومياً، واكتب كل اسم مع أداة التعريف (der / die / das).', 'كرّر الجمل بصوت مرتفع وليس بالقراءة الصامتة.', 'كراسة صغيرة لـ «الجمل اليومية» تراجعها كل أسبوع.', 'تدرّب على الأفعال الأساسية في جمل قصيرة قبل القواعد الطويلة.'] }
+];
+
+const MONTH_PLAN = [
+  { t: 'الأسبوع الأول: عربي ودراسات', items: ['مراجعة الدروس المنتهية في العربي وتلخيصها', 'خرائط ذهنية للدراسات الاجتماعية', 'حل 10 أسئلة اختبار نفسك في كل مادة', 'تحديث دفتر الأخطاء'] },
+  { t: 'الأسبوع الثاني: Math وScience', items: ['مراجعة القوانين والمفاهيم الأساسية', 'حل نموذج امتحان واحد لكل مادة', 'كتابة أخطائك وإعادة حلها', 'مراجعة الرسومات والتجارب في Science'] },
+  { t: 'الأسبوع الثالث: إنجليزي وألماني', items: ['مراجعة مفردات الشهر بالبطاقات', 'كتابة فقرة إنجليزية ومراجعتها', 'محادثة ألمانية قصيرة مسجلة', 'مقارنة تسجيل صوتك مع أول الشهر'] },
+  { t: 'الأسبوع الرابع: امتحان تجريبي', items: ['امتحان تجريبي كامل بالتوقيت (مادتان على الأقل)', 'تصحيح الامتحان وتحديد 3 نقاط ضعف', 'إعادة دراسة نقاط الضعف بجلسات قصيرة', 'يوم راحة كامل قبل بداية الشهر الجديد'] }
+];
+
+const LANG = {
+  en: {
+    n: 'الإنجليزية', min: '15–20 د يومياً',
+    level: 'ابدأ بالمحتوى القصير ومعه النص المكتوب، ثم انتقل لحلقات أطول حين يصبح الفهم سهلاً.',
+    week: { 6: 'Podcast + Shadowing 3 دقائق', 0: 'Podcast + محادثة 10–15 د + تسجيل', 1: 'Podcast', 2: 'Podcast + Shadowing 3 دقائق', 3: 'Podcast', 4: 'Podcast + محادثة 10–15 د + تسجيل', 5: 'Podcast خفيف + قارن تسجيلاتك' },
+    sources: [
+      { n: 'BBC Learning English: 6 Minute English', u: 'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english', d: 'حوارات من 6 دقائق عن مواضيع شبابية، مع النص المكتوب. مناسبة للمستوى المتوسط.' },
+      { n: 'BBC Learning English: The English We Speak', u: 'https://www.bbc.co.uk/learningenglish/english/features/the-english-we-speak', d: 'تعبيرات يومية يستخدمها الناطقون بالإنجليزية في 3 دقائق. ممتاز للمحادثة.' },
+      { n: 'BBC Learning English (الموقع الرئيسي)', u: 'https://www.bbc.co.uk/learningenglish', d: 'دروس ومفردات وقواعد مجانية مقسمة حسب المستوى.' }
+    ],
+    phrases: [['Piece of cake', 'سهل جداً'], ['Break the ice', 'كسر الحاجز في بداية الحديث'], ['Hit the books', 'يذاكر بجد'], ['Under the weather', 'متعب قليلاً'], ['Once in a blue moon', 'نادراً جداً'], ['Spill the beans', 'يكشف السر'], ['On the ball', 'منتبه وسريع'], ['Cost an arm and a leg', 'غالٍ جداً']],
+    topics: ['عرّف نفسك وعن هواياتك', 'صف يومك من الاستيقاظ للنوم', 'تكلم عن الجيم وتمارينك المفضلة', 'لخّص آخر درس أخذته', 'فيلم أو لعبة تحبها ولماذا', 'خطتك لإجازة الصيف']
+  },
+  de: {
+    n: 'الألمانية', min: '10–15 د يومياً',
+    level: 'ابدأ بمستوى A1 وبحلقات قصيرة، وكرّر الحلقة نفسها أكثر من مرة قبل الانتقال لغيرها.',
+    week: { 6: 'استماع 10–15 د + 5 جمل', 0: 'استماع + جمل بصوت مرتفع', 1: 'محادثة بسيطة 10–15 د', 2: 'استماع + جمل', 3: 'استماع + جمل', 4: 'استماع + مراجعة كلمات الأسبوع', 5: 'محادثة بسيطة 10–15 د' },
+    sources: [
+      { n: 'DW Learn German', u: 'https://learngerman.dw.com', d: 'منصة مجانية من Deutsche Welle. ابحث بداخلها عن كورس Nicos Weg لمستوى A1 كبداية.' },
+      { n: 'DW Learn German: مستوى A1 ثم A2', u: 'https://learngerman.dw.com', d: 'اختر المستوى من داخل الموقع. كل درس قصير ويضم صوتاً وتمارين ومفردات.' }
+    ],
+    phrases: [['Guten Morgen!', 'صباح الخير'], ['Wie geht’s?', 'كيف حالك؟'], ['Ich heiße …', 'اسمي …'], ['Ich komme aus Ägypten.', 'أنا من مصر'], ['Ich lerne Deutsch.', 'أتعلم الألمانية'], ['Ich mag Sport.', 'أحب الرياضة'], ['Wie spät ist es?', 'كم الساعة؟'], ['Bis später!', 'أراك لاحقاً']],
+    topics: ['Ich heiße … und ich bin … Jahre alt', 'Ich gehe zur Schule und ins Fitnessstudio', 'Mein Tag: aufstehen, essen, lernen', 'Meine Familie', 'Mein Lieblingsessen', 'Was ich am Wochenende mache']
+  }
+};
+
+const LEVELS = [[0, 'متدرّب'], [800, 'منظّم'], [2000, 'متفوّق'], [4000, 'نجم'], [7000, 'أسطورة']];
+const DEFAULT_REWARDS = ['اختيار فيلم العائلة أو وجبتك المفضلة', 'خروجة أو نشاط ممتع مع الأصدقاء أو العائلة', 'هدية صغيرة تختارها بنفسك'];
+const TIERS = [0.5, 0.7, 0.9];
+const MONTHS_AR = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+
+const ICONS = {
+  book: '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17z"/><path d="M8 7h8"/>',
+  calc: '<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/>',
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+  headphones: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="7" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="7" rx="1.8"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/>',
+  dumbbell: '<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>',
+  moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/>',
+  meal: '<path d="M7 3v8M4.5 3v5a2.5 2.5 0 0 0 5 0V3M7 11v10M17 21V3c-2.5 1.5-3.5 4.5-3.5 8H17"/>',
+  cup: '<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 10.5h1.5a2.5 2.5 0 0 1 0 5H15.5M8 3.5c0 1 1 1 1 2M12 3.5c0 1 1 1 1 2"/>',
+  walk: '<circle cx="13" cy="4.5" r="1.8"/><path d="M12 8.5l-2.5 4 3 2.5-1 5.5M12 8.5l3 3.5 3 .5M9.5 12.5l-3 1.5"/>',
+  home: '<path d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5h4v5"/>',
+  laptop: '<rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2.5 19h19"/>',
+  pen: '<path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14.5 6.5l3 3"/>',
+  repeat: '<path d="M4 12a8 8 0 0 1 13.5-5.8L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.5 5.8L4 15.5M4 20v-4.5h4.5"/>',
+  star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  timer: '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 1.5M9.5 2.5h5"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  calendar: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+  trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4.5a3 3 0 0 0 3.5 4M16 6h3.5a3 3 0 0 1-3.5 4M12 13v4M8.5 20h7M10 17h4"/>',
+  link: '<path d="M9 5H5v14h14v-4M13 5h6v6M19 5l-8 8"/>',
+  play: '<path d="M8 5l11 7-11 7z"/>',
+  pause: '<path d="M8 5v14M16 5v14"/>',
+  reset: '<path d="M4 12a8 8 0 1 0 2.5-5.8L4 8.5M4 4v4.5h4.5"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  back: '<path d="M9 5l7 7-7 7"/>',
+  trash: '<path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13"/>',
+  bell: '<path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15zM10 21h4"/>',
+  grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+  more: '<path d="M5 12h.01M12 12h.01M19 12h.01"/>'
+};
+
+const KEY = 'elite_planner_v1';
+const pad = n => String(n).padStart(2, '0');
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function defaults() {
+  return { v: 1, name: '', theme: 'auto', alerts: true, exam: '', dur: {}, custom: [], gmail: '', calDone: {}, ovr: {}, exams: [], done: {}, joker: {}, ratings: {}, claimed: {}, month: {}, rewards: DEFAULT_REWARDS.slice() };
+}
+function load() {
+  try { const r = localStorage.getItem(KEY); if (r) return Object.assign(defaults(), JSON.parse(r)); } catch (e) { }
+  return defaults();
+}
+let S = load();
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } }
+
+/* ---------- time helpers ---------- */
+function t12(m) { const h = Math.floor(m / 60) % 24, mm = m % 60; return { t: (h % 12 || 12) + ':' + pad(mm), p: h < 12 ? 'ص' : 'م' }; }
+function ft(m) { const x = t12(m); return x.t + ' ' + x.p; }
+function fd(min) { if (min < 60) return min + ' د'; const h = Math.floor(min / 60), r = min % 60; return r ? h + ' س ' + r + ' د' : h + ' س'; }
+function keyOf(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function midnight(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+function weekStart(d) { return addDays(midnight(d), -((d.getDay() + 1) % 7)); }
+function weekDates(d) { const s = weekStart(d); return [0, 1, 2, 3, 4, 5, 6].map(i => addDays(s, i)); }
+function fmtCD(sec) {
+  sec = Math.max(0, Math.floor(sec));
+  const d = Math.floor(sec / 86400), h = Math.floor(sec % 86400 / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+  if (d > 0) return { t: d + ' يوم ' + h + ' س', sm: true };
+  if (h > 0) return { t: h + ':' + pad(m) + ':' + pad(s) };
+  return { t: pad(m) + ':' + pad(s) };
+}
+
+/* ---------- schedule ---------- */
+let cache = {};
+function clearCache() { cache = {}; }
+function lessonDur(type) {
+  const L = LESSON[type];
+  if (L.fixedDur) return L.dur;
+  return clamp(+S.dur[type] || L.dur, 30, 180);
+}
+function overlaps(a, b) { return a.s < b.e && b.s < a.e; }
+function dayEvents(d) {
+  if (cache[d]) return cache[d];
+  const fixed = [];
+  (FIXED[d] || []).forEach(([type, s]) => {
+    const o = S.ovr[type + d];
+    if (o && o.off) return;
+    if (o && o.s != null) s = o.s;
+    if (type === 'home') { fixed.push({ k: 'home' + d, s, e: s, ovr: !!o, kind: 'home', title: 'العودة إلى المنزل', ic: 'home', why: W.home, fixed: true, point: true }); return; }
+    const L = LESSON[type];
+    fixed.push({ k: type + d, s, e: s + ((o && o.dur) || lessonDur(type)), ovr: !!o, kind: 'fixed', type, title: L.n, short: L.short, ic: L.ic, why: type === 'online' ? W.online : W.lesson, fixed: true, lesson: true, out: L.out });
+  });
+  (S.custom || []).filter(c => c.day === d).forEach(c => {
+    fixed.push({ k: 'c' + c.id, s: c.s, e: c.s + c.dur, kind: 'fixed', type: 'custom', title: c.title, short: c.title, ic: 'star', why: 'درس أضفته أنت. يمكنك حذفه من «المزيد ← دروس إضافية».', fixed: true, lesson: true, out: !!c.out, custom: true, id: c.id });
+  });
+  fixed.sort((a, b) => a.s - b.s);
+  const transit = [];
+  fixed.filter(f => f.lesson && f.out).forEach(f => {
+    const t = { k: 't' + f.k, s: f.s - TRANSIT, e: f.s, kind: 'transit', title: 'انتقال إلى ' + f.short, ic: 'walk', why: W.transit, auto: true };
+    if (!fixed.some(x => x !== f && overlaps(t, x) && !x.point)) transit.push(t);
+  });
+  const blockers = fixed.concat(transit).filter(x => !x.point);
+  const flex = (FLEX[d] || []).map(a => ({ k: 'f' + d + '_' + a[0], s: a[0], e: a[0] + a[1], dur: a[1], kind: a[2], title: a[3], ic: a[4], why: a[5], tag: a[6], point: a[1] === 0 }))
+    .filter(b => b.point || !blockers.some(x => overlaps(b, x)));
+  const all = fixed.concat(transit, flex).sort((a, b) => a.s - b.s || a.e - b.e);
+  return (cache[d] = all);
+}
+function examLabel(x) { return ({ mid: 'امتحان نصف العام', fin: 'امتحان نهاية العام', mon: 'اختبار شهري' })[x.kind] + (x.subj ? ' · ' + x.subj : ''); }
+function examDays(x, now) { return Math.round((new Date(x.date + 'T00:00:00') - midnight(now || new Date())) / 86400000); }
+function upcomingExams(now) { return (S.exams || []).filter(x => examDays(x, now) >= 0).sort((a, b) => a.date < b.date ? -1 : 1); }
+const BYDAY = { 6: 'SA', 0: 'SU', 1: 'MO', 2: 'TU', 3: 'WE', 4: 'TH', 5: 'FR' };
+const validMail = m => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m || '');
+function stamp(dt, m) { return dt.getFullYear() + pad(dt.getMonth() + 1) + pad(dt.getDate()) + 'T' + pad(Math.floor(m / 60)) + pad(m % 60) + '00'; }
+function nextDateFor(d, startMin) { const now = new Date(), nm = now.getHours() * 60 + now.getMinutes(); for (let i = 0; i < 8; i++) { const dt = addDays(midnight(now), i); if (dt.getDay() === d && (i > 0 || startMin > nm)) return dt; } return addDays(midnight(now), 7); }
+function calURL(o) {
+  const q = ['action=TEMPLATE', 'text=' + encodeURIComponent(o.t), 'dates=' + o.a + '/' + o.b, 'ctz=Africa%2FCairo'];
+  if (o.r) q.push('recur=' + encodeURIComponent(o.r));
+  if (o.d) q.push('details=' + encodeURIComponent(o.d));
+  if (validMail(S.gmail)) q.push('add=' + encodeURIComponent(S.gmail));
+  return 'https://calendar.google.com/calendar/render?' + q.join('&');
+}
+function calItems() {
+  const items = [];
+  DAY_ORDER.forEach(d => dayEvents(d).filter(e => e.lesson).forEach(e => {
+    const dt = nextDateFor(d, e.s);
+    items.push({ k: e.k, grp: DAY_NAME[d], t: e.title, sub: ft(e.s) + ' – ' + ft(e.e), url: calURL({ t: e.title, a: stamp(dt, e.s), b: stamp(dt, e.e), r: 'RRULE:FREQ=WEEKLY;BYDAY=' + BYDAY[d], d: e.out ? 'اخرج من البيت الساعة ' + ft(e.s - TRANSIT) : 'جهّز مكاناً هادئاً قبل الدرس' }) });
+  }));
+  const sd = nextDateFor(new Date().getDay(), 0);
+  items.push({ k: 'sleep', grp: 'تذكيرات يومية', t: 'تجهيز النوم', sub: '11:15 م كل يوم', url: calURL({ t: 'تجهيز النوم: أغلق الشاشات', a: stamp(sd, H(23, 15)), b: stamp(sd, H(23, 30)), r: 'RRULE:FREQ=DAILY' }) });
+  upcomingExams().forEach(x => { const dd = new Date(x.date + 'T00:00:00'), nx = addDays(dd, 1); const f = z => z.getFullYear() + pad(z.getMonth() + 1) + pad(z.getDate()); items.push({ k: 'x' + x.id, grp: 'الامتحانات', t: examLabel(x), sub: x.date, url: calURL({ t: examLabel(x), a: f(dd), b: f(nx) }) }); });
+  return items;
+}
+function sleepAt(d) { return SLEEP_AT[d]; }
+function loadMinutes(d) {
+  const ev = dayEvents(d);
+  return ev.filter(e => e.lesson).reduce((a, e) => a + (e.e - e.s), 0) + ev.filter(e => e.kind === 'transit').reduce((a, e) => a + (e.e - e.s), 0);
+}
+function loadLabel(min) { if (min === 0) return { t: 'مرن', c: 0 }; if (min <= 200) return { t: 'خفيف', c: 1 }; if (min <= 350) return { t: 'متوسط', c: 2 }; return { t: 'مزدحم', c: 3 }; }
+
+/* ---------- lessons across days (for countdown) ---------- */
+function lessonsOn(dt) {
+  const base = midnight(dt).getTime();
+  return dayEvents(dt.getDay()).filter(e => e.lesson).map(e => ({ e, st: base + e.s * 60000, en: base + e.e * 60000 }));
+}
+function lessonState(now) {
+  const t = now.getTime(); let cur = null, next = null, prev = null;
+  for (let i = 0; i <= 8 && !next; i++) {
+    for (const l of lessonsOn(addDays(now, i))) { if (l.st <= t && t < l.en) cur = l; else if (l.st > t) { next = l; break; } }
+  }
+  for (let i = 0; i >= -8 && !prev; i--) {
+    const arr = lessonsOn(addDays(now, i)).filter(l => l.en <= t);
+    if (arr.length) prev = arr[arr.length - 1];
+  }
+  return { cur, next, prev };
+}
+
+/* ---------- tasks & scoring ---------- */
+function tasksFor(d) {
+  const hasLes = dayEvents(d).some(e => e.lesson);
+  return TASKS.filter(t => {
+    if (t.id === 'attend') return hasLes;
+    if (t.id === 'talk') return !!TALK[d];
+    if (t.id === 'de') return !(d === 1 || d === 5);
+    return true;
+  });
+}
+function dayScore(date) {
+  const k = keyOf(date), rec = S.done[k] || {};
+  let max = 0, got = 0; const cat = {};
+  tasksFor(date.getDay()).forEach(t => {
+    max += t.pts; const ok = !!rec[t.id]; if (ok) got += t.pts;
+    const c = cat[t.cat] = cat[t.cat] || { m: 0, g: 0 }; c.m += t.pts; if (ok) c.g += t.pts;
+  });
+  return { max, got, pct: max ? got / max : 0, joker: !!S.joker[k], cat };
+}
+function weekStats(date) {
+  const today = midnight(new Date());
+  let max = 0, got = 0; const cats = {};
+  const days = weekDates(date).map(dt => {
+    const s = dayScore(dt), future = dt > today;
+    if (!s.joker) { max += s.max; got += s.got; }
+    if (!s.joker && !future) for (const c in s.cat) { const x = cats[c] = cats[c] || { m: 0, g: 0 }; x.m += s.cat[c].m; x.g += s.cat[c].g; }
+    return Object.assign({ dt, future }, s);
+  });
+  return { days, max, got, pct: max ? got / max : 0, cats };
+}
+function streak() {
+  let n = 0; const today = midnight(new Date());
+  for (let i = 0; i < 400; i++) {
+    const dt = addDays(today, -i), s = dayScore(dt);
+    if (s.joker || s.pct >= 0.6) n++;
+    else if (i === 0) continue;
+    else break;
+  }
+  return n;
+}
+function lifetimePoints() {
+  let sum = 0;
+  for (const k in S.done) {
+    const [y, m, d] = k.split('-').map(Number); const dt = new Date(y, m - 1, d);
+    const rec = S.done[k];
+    tasksFor(dt.getDay()).forEach(t => { if (rec[t.id]) sum += t.pts; });
+  }
+  return sum;
+}
+function levelOf(p) { let L = LEVELS[0], next = null; for (let i = 0; i < LEVELS.length; i++) { if (p >= LEVELS[i][0]) { L = LEVELS[i]; next = LEVELS[i + 1] || null; } } return { n: L[1], from: L[0], next }; }
+function weekKey(d) { return keyOf(weekStart(d)); }
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+function ic(n, sz = 22) {
+  const p = ICONS[n];
+  if (p) return '<svg class="ic" width="' + sz + '" height="' + sz + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+  return '<span class="glyph' + (n.length > 2 ? ' g3' : '') + '">' + esc(n) + '</span>';
+}
+
+const ui = { tab: 'today', day: new Date().getDay(), achIdx: (new Date().getDay() + 1) % 7, ach: 'day', lang: 'en', more: null, scrolled: false, sheet: null };
+const KIND = { fixed: 'موعد ثابت', study: 'مذاكرة', lang: 'لغات', meal: 'وجبة', rest: 'راحة', free: 'وقت حر', transit: 'انتقال', sleep: 'نوم', home: 'محطة' };
+const TABS = [['today', 'اليوم', 'calendar'], ['week', 'الأسبوع', 'grid'], ['ach', 'الإنجاز', 'trophy'], ['lang', 'اللغات', 'headphones'], ['more', 'المزيد', 'more']];
+
+/* ---------- toast, sound, alerts ---------- */
+let audioCtx = null;
+function beep() {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = 'sine'; o.frequency.value = 880; g.gain.value = 0.08;
+    o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.25);
+  } catch (e) { }
+}
+let toastT = null;
+function toast(msg, quiet) {
+  const t = $('#toast'); if (!t) return;
+  t.innerHTML = ic('bell', 18) + '<span>' + esc(msg) + '</span>';
+  t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 5500);
+  if (!quiet) { try { navigator.vibrate && navigator.vibrate([180, 80, 180]); } catch (e) { } beep(); }
+}
+const fired = new Set();
+function checkAlerts(now) {
+  if (!S.alerts) return;
+  const d = now.getDay(), key = keyOf(now), nowM = now.getHours() * 60 + now.getMinutes();
+  const list = [];
+  dayEvents(d).forEach(e => {
+    if (e.lesson) {
+      list.push([e.k + 'p', e.s - 30, 'بعد 30 دقيقة: ' + e.title + '. جهّز أدواتك']);
+      if (e.out) list.push([e.k + 'l', e.s - TRANSIT, 'حان وقت الخروج إلى ' + e.title]);
+      else list.push([e.k + 'l', e.s - 5, e.title + ' بعد 5 دقائق. جهّز مكاناً هادئاً']);
+    }
+    if (e.tag === 'en') list.push([e.k + 't', e.s, 'وقت Podcast الإنجليزي: 15–20 دقيقة ممتعة']);
+    if (e.tag === 'de') list.push([e.k + 't', e.s, 'وقت الألماني: 10–15 دقيقة استماع وجمل']);
+    if (e.tag === 'talk') list.push([e.k + 't', e.s, 'وقت المحادثة اليوم: ' + TALK[d] + ' لمدة 10–15 دقيقة']);
+    if (e.tag === 'sleep') list.push([e.k + 'z', e.s - 15, 'بعد 15 دقيقة موعد النوم. أغلق الشاشات']);
+  });
+  upcomingExams(now).forEach(x => { const n = examDays(x, now); if ([0, 1, 3, 7].includes(n) && !fired.has('x' + x.id + n)) { fired.add('x' + x.id + n); toast((n === 0 ? 'اليوم ' : n === 1 ? 'غداً ' : 'بعد ' + n + ' أيام: ') + examLabel(x) + '. راجع بهدوء ونم مبكراً'); } });
+  list.forEach(([id, at, msg]) => {
+    const fk = key + id;
+    if (nowM >= at && nowM < at + 2 && !fired.has(fk)) { fired.add(fk); toast(msg); }
+  });
+}
+
+/* ---------- theme ---------- */
+function applyTheme() {
+  let t = S.theme;
+  if (t === 'auto') t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  document.documentElement.dataset.theme = t;
+  const m = $('meta[name="theme-color"]'); if (m) m.content = '#0A1A3A';
+}
+
+/* ---------- small builders ---------- */
+function header(title, sub) {
+  return '<header class="top"><div><p class="sub">' + sub + '</p><h1>' + title + '</h1></div><div class="seal">' + ic('star', 20) + '</div></header>';
+}
+function dayChips(sel, act, todayIdx) {
+  return '<div class="chips" role="tablist">' + DAY_ORDER.map(d =>
+    '<button class="chip' + (d === sel ? ' on' : '') + '" data-act="' + act + '" data-d="' + d + '">' + DAY_NAME[d] + (d === todayIdx ? '<i class="tdot"></i>' : '') + '</button>').join('') + '</div>';
+}
+function badge(e) { return '<span class="bd">' + ic(e.ic, 20) + '</span>'; }
+function ring(pct, size, r, label, cls) {
+  const C = 2 * Math.PI * r, v = clamp(pct, 0, 1);
+  return '<svg class="rg" width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" aria-hidden="true"><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" class="rg-t"/><circle cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" class="rg-p ' + (cls || '') + '" stroke-dasharray="' + (C * v).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 ' + size / 2 + ' ' + size / 2 + ')"/></svg>';
+}
+
+/* ---------- TODAY ---------- */
+function heroHTML(now) {
+  const ls = lessonState(now), t = now.getTime();
+  let label, title, sub, sec, prog, hint = '';
+  if (ls.cur) {
+    label = 'في الدرس الآن'; title = ls.cur.e.title; sub = 'ينتهي ' + ft(ls.cur.e.e);
+    sec = (ls.cur.en - t) / 1000; prog = (t - ls.cur.st) / (ls.cur.en - ls.cur.st);
+  } else if (ls.next) {
+    const n = ls.next, nd = new Date(n.st), diff = Math.round((midnight(nd) - midnight(now)) / 86400000);
+    const dn = diff === 0 ? '' : diff === 1 ? 'غداً ' : DAY_NAME[nd.getDay()] + ' ';
+    label = 'الدرس القادم'; title = n.e.title; sub = dn + ft(n.e.s);
+    sec = (n.st - t) / 1000;
+    const p0 = ls.prev ? ls.prev.en : t - 3600000;
+    prog = (t - p0) / (n.st - p0);
+    if (diff === 0) {
+      if (n.e.out) hint = (n.st - TRANSIT * 60000 > t) ? 'اخرج من البيت ' + ft(n.e.s - TRANSIT) : 'حان وقت الخروج الآن';
+      else hint = 'جهّز مكاناً هادئاً ومياهاً';
+    }
+  } else { label = 'لا دروس قادمة'; title = 'أسبوع هادئ'; sub = ''; sec = 0; prog = 0; }
+  const cd = fmtCD(sec);
+  const evs = dayEvents(now.getDay()), nowS = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+  const cur = evs.find(e => !e.point && nowS >= e.s * 60 && nowS < e.e * 60);
+  let nowTxt, nowProg = 0;
+  if (cur) { nowTxt = cur.title; nowProg = (nowS - cur.s * 60) / ((cur.e - cur.s) * 60); }
+  else if (nowS < evs[0].s * 60) nowTxt = 'ما زال وقت النوم';
+  else if (nowS >= sleepAt(now.getDay()) * 60) nowTxt = 'تصبح على خير';
+  else nowTxt = 'وقت مرن';
+  let exam = '';
+  const ux = upcomingExams(now)[0];
+  if (ux) { const n = examDays(ux, now); exam = '<span class="pill">' + ic('calendar', 14) + (n === 0 ? ' اليوم: ' : ' باقي ' + n + ' يوم على ') + esc(examLabel(ux)) + '</span>'; }
+  return '<section class="hero"><div class="hero-top">' +
+    '<div class="rgw">' + ring(prog, 132, 56, '', 'gold') + '<div class="rgc"><b class="' + (cd.sm ? 'sm' : '') + '" dir="ltr">' + cd.t + '</b><small>' + (ls.cur ? 'متبقٍّ' : 'حتى الدرس') + '</small></div></div>' +
+    '<div class="hero-tx"><p class="lb">' + label + '</p><h2>' + esc(title) + '</h2><p class="hs">' + sub + '</p>' + (hint ? '<span class="pill gold">' + ic('walk', 14) + ' ' + hint + '</span>' : '') + '</div></div>' +
+    '<div class="hero-now"><span class="nw">الآن</span><b>' + esc(nowTxt) + '</b><div class="bar"><i style="width:' + Math.round(nowProg * 100) + '%"></i></div></div>' + (exam ? '<div class="hero-ex">' + exam + '</div>' : '') + '</section>';
+}
+function paintHero() { const h = $('#hero'); if (h) h.innerHTML = heroHTML(new Date()); }
+function rowHTML(e, isToday, nowS) {
+  const cur = isToday && !e.point && nowS >= e.s * 60 && nowS < e.e * 60;
+  const past = isToday && (e.point ? e.s * 60 <= nowS : e.e * 60 <= nowS);
+  const meta = e.point ? '' : '<small>' + fd(e.e - e.s) + '</small>';
+  const x = t12(e.s);
+  return '<button class="row k-' + e.kind + (cur ? ' cur' : '') + (past ? ' past' : '') + '" data-act="ev" data-k="' + e.k + '">' +
+    '<span class="tm"><b>' + x.t + '</b><i>' + x.p + '</i>' + meta + '</span><span class="rail"><i></i></span>' +
+    '<span class="cd">' + badge(e) + '<span class="tx"><b>' + esc(e.title) + '</b><small>' + (e.fixed && e.lesson ? ft(e.s) + ' – ' + ft(e.e) : e.point ? KIND[e.kind] : KIND[e.kind]) + '</small></span>' + (cur ? '<em class="now">الآن</em>' : '') + '</span></button>';
+}
+function paintTL() {
+  const box = $('#tl'); if (!box) return;
+  const now = new Date(), isToday = ui.day === now.getDay(), nowS = now.getHours() * 3600 + now.getMinutes() * 60;
+  box.innerHTML = dayEvents(ui.day).map(e => rowHTML(e, isToday, nowS)).join('');
+}
+function dayBrief(d) {
+  const lessons = dayEvents(d).filter(e => e.lesson), L = loadLabel(loadMinutes(d));
+  return '<section class="card brief"><div><b>' + DAY_NAME[d] + '</b><p>' + (lessons.length ? lessons.length + ' دروس ثابتة' : 'لا دروس ثابتة. يوم مرن') + ' · النوم ' + ft(sleepAt(d)) + '</p></div><span class="load l' + L.c + '">' + L.t + '</span></section>';
+}
+function viewToday() {
+  const now = new Date(), td = now.getDay();
+  let h = header('أهلاً ' + (S.name ? esc(S.name) : 'يا بطل'), DAY_NAME[td] + ' ' + now.getDate() + ' ' + MONTHS_AR[now.getMonth()]);
+  h += dayChips(ui.day, 'day', td);
+  h += ui.day === td ? '<div id="hero"></div>' : dayBrief(ui.day);
+  h += '<div class="tl" id="tl"></div>';
+  if (ui.day === 5) h += '<p class="note">قد تُضاف دروس جديدة يوم الجمعة حسب مواعيد المدرسين. أضفها من <button class="lnk" data-act="addlesson">إضافة درس</button> وسيظهر مع تنبيهاته.</p>';
+  return h;
+}
+
+/* ---------- WEEK ---------- */
+function viewWeek() {
+  const td = new Date().getDay();
+  const maxL = Math.max(...DAY_ORDER.map(loadMinutes), 1);
+  const busy = DAY_ORDER.filter(d => loadLabel(loadMinutes(d)).c === 3).map(d => DAY_NAME[d]);
+  const light = DAY_ORDER.filter(d => loadLabel(loadMinutes(d)).c <= 2).map(d => DAY_NAME[d]);
+  let h = header('الأسبوع', 'من السبت إلى الجمعة');
+  h += '<section class="card ins"><h3>تحليل توزيع الوقت</h3><p>الأيام الأكثر ازدحاماً: <b>' + (busy.join(' و') || 'لا يوجد') + '</b>. الأيام الأقل ازدحاماً: <b>' + light.join(' و') + '</b>. لذلك تُركت الأيام المزدحمة للمراجعة القصيرة فقط، ووُضعت الواجبات الأطول في الأيام الأقل ازدحاماً.</p>' +
+    '<div class="lb-list">' + DAY_ORDER.map(d => { const m = loadMinutes(d), L = loadLabel(m); return '<div class="lbr"><span>' + DAY_NAME[d] + '</span><div class="lbar"><i class="l' + L.c + '" style="width:' + Math.max(m / maxL * 100, 3) + '%"></i></div><em>' + fd(m) + '</em></div>'; }).join('') + '</div></section>';
+  h += DAY_ORDER.map(d => {
+    const L = loadLabel(loadMinutes(d)), ls = dayEvents(d).filter(e => e.lesson || e.point && e.kind === 'home');
+    return '<button class="card wk' + (d === td ? ' today' : '') + '" data-act="goday" data-d="' + d + '"><div class="wk-h"><b>' + DAY_NAME[d] + '</b><span class="load l' + L.c + '">' + L.t + '</span></div>' +
+      '<div class="wk-c">' + (ls.length ? ls.map(e => e.point ? '<span class="mini home">' + ic('home', 13) + ' ' + ft(e.s) + '</span>' : '<span class="mini">' + esc(e.short) + ' ' + ft(e.s) + '</span>').join('') : '<span class="mini soft">لا دروس. يوم مرن</span>') + '</div>' +
+      '<small>الاستيقاظ 9:00 ص · النوم ' + ft(sleepAt(d)) + '</small></button>';
+  }).join('');
+  h += '<div class="legend"><span><i class="lg fixed"></i>موعد ثابت</span><span><i class="lg study"></i>مذاكرة</span><span><i class="lg lang"></i>لغات</span><span><i class="lg rest"></i>راحة ووجبات</span><span><i class="lg sleep"></i>نوم</span></div>';
+  return h;
+}
+
+/* ---------- ACHIEVEMENT ---------- */
+function taskSub(t, d) {
+  const n = dayEvents(d).filter(e => e.lesson).length;
+  return ({
+    attend: n + ' دروس اليوم', hw: 'ابدأ بالأسهل ثم الأصعب', rev: 'استرجاع نشط بدون النظر للكتاب', en: '15–20 دقيقة مع Shadowing', de: '10–15 دقيقة استماع وجمل',
+    talk: TALK[d] + ' لمدة 10–15 دقيقة', sport: (d === 6 || d === 2) ? 'الجيم اليوم' : 'حركة خفيفة 15–20 دقيقة', sleep: 'النوم ' + ft(sleepAt(d))
+  })[t.id];
+}
+function viewAch() {
+  let h = header('الإنجاز', 'خطوة صغيرة كل يوم');
+  h += '<div class="seg">' + [['day', 'اليوم'], ['week', 'الأسبوع'], ['rew', 'المكافآت']].map(x => '<button class="' + (ui.ach === x[0] ? 'on' : '') + '" data-act="ach" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>';
+  return h + (ui.ach === 'day' ? achDay() : ui.ach === 'week' ? achWeek() : achRew());
+}
+function achDay() {
+  const wd = weekDates(new Date()), today = midnight(new Date()), dt = wd[ui.achIdx], d = dt.getDay(), key = keyOf(dt);
+  const sc = dayScore(dt), rec = S.done[key] || {}, tasks = tasksFor(d);
+  const msg = sc.joker ? 'يوم راحة. استمتع به بدون أي ضغط' : sc.pct >= 0.9 ? 'يوم ذهبي! أداء رائع' : sc.pct >= 0.5 ? 'ممتاز، قرّبت من الهدف' : sc.pct > 0 ? 'بداية جيدة، كمّل بهدوء' : 'ابدأ بأسهل مهمة في القائمة';
+  let h = '<div class="chips">' + wd.map((x, i) => '<button class="chip' + (i === ui.achIdx ? ' on' : '') + '"' + (x > today ? ' disabled' : '') + ' data-act="achday" data-i="' + i + '">' + DAY_NAME[x.getDay()] + (x.getTime() === today.getTime() ? '<i class="tdot"></i>' : '') + '</button>').join('') + '</div>';
+  h += '<section class="card score"><div class="rgw s">' + ring(sc.pct, 96, 40, '', 'gold') + '<div class="rgc"><b>' + sc.got + '</b><small>من ' + sc.max + '</small></div></div><div><h3>' + msg + '</h3><p>' + Math.round(sc.pct * 100) + '% من نقاط اليوم</p><button class="btn ghost sm' + (sc.joker ? ' on' : '') + '" data-act="joker">' + ic('star', 16) + (sc.joker ? ' ألغِ يوم الراحة' : ' اجعله يوم راحة (جوكر)') + '</button></div></section>';
+  h += '<div class="tasks' + (sc.joker ? ' dim' : '') + '">' + tasks.map(t => '<button class="task' + (rec[t.id] ? ' ok' : '') + '" data-act="task" data-id="' + t.id + '"><span class="chk">' + ic('check', 18) + '</span><span class="bd">' + ic(t.ic, 20) + '</span><span class="tx"><b>' + (t.id === 'talk' ? 'تدريب المحادثة' : t.t) + '</b><small>' + taskSub(t, d) + '</small></span><span class="pts">+' + t.pts + '</span></button>').join('') + '</div>';
+  h += '<p class="note">جلسات التركيز في هذا اليوم: <b>' + (rec.focus || 0) + '</b>. النقاط لا تنقص أبداً، ويمكنك تعديل أي يوم من هذا الأسبوع.</p>';
+  return h;
+}
+function stars(l, v) { return '<div class="stars">' + [1, 2, 3, 4, 5].map(n => '<button class="' + (n <= v ? 'on' : '') + '" data-act="rate" data-l="' + l + '" data-n="' + n + '" aria-label="' + n + '">' + ic('star', 24) + '</button>').join('') + '</div>'; }
+function achWeek() {
+  const ws = weekStats(new Date()), wk = weekKey(new Date()), r = S.ratings[wk] || {};
+  const prev = S.ratings[weekKey(addDays(weekStart(new Date()), -1))] || {};
+  let worst = null;
+  for (const c in ws.cats) { const p = ws.cats[c].g / ws.cats[c].m; if (!worst || p < worst.p) worst = { c, p }; }
+  const tip = !worst ? 'ابدأ بتسجيل إنجازاتك ليظهر لك تحليل الأسبوع.' : worst.p >= 0.8 ? 'أسبوع قوي في كل المجالات. حافظ على نفس الإيقاع.' : 'فرصة التحسين: ' + CATS[worst.c].n + ' (' + Math.round(worst.p * 100) + '%). ' + CATS[worst.c].tip;
+  let h = '<section class="card score"><div class="rgw s">' + ring(ws.pct, 96, 40, '', 'gold') + '<div class="rgc"><b>' + Math.round(ws.pct * 100) + '%</b></div></div><div><h3>نقاط الأسبوع</h3><p>' + ws.got + ' من ' + ws.max + ' نقطة</p><p class="mut">سلسلة الأيام الجيدة: ' + streak() + '</p></div></section>';
+  h += '<section class="card"><h3>إنجاز كل يوم</h3><div class="bars">' + ws.days.map(x => '<div class="bc' + (x.future ? ' fut' : '') + '"><div class="bt"><i class="' + (x.pct >= 0.7 ? 'hi' : '') + '" style="height:' + Math.max(x.joker ? 0 : x.pct * 100, 3) + '%"></i>' + (x.joker ? '<u>جوكر</u>' : '') + '</div><span>' + DAY_NAME[x.dt.getDay()].replace('ال', '') + '</span></div>').join('') + '</div></section>';
+  h += '<section class="card"><h3>حسب المجال</h3><div class="lb-list">' + Object.keys(CATS).map(c => { const x = ws.cats[c], p = x ? x.g / x.m : 0; return '<div class="lbr"><span>' + CATS[c].n + '</span><div class="lbar"><i class="l1" style="width:' + Math.max(p * 100, 3) + '%"></i></div><em>' + Math.round(p * 100) + '%</em></div>'; }).join('') + '</div><p class="tip">' + tip + '</p></section>';
+  h += '<section class="card"><h3>تقييم نطقك هذا الأسبوع</h3><p class="mut">بعد سماع تسجيلك، قيّم نفسك بصدق من 1 إلى 5.</p><div class="rate"><span>الإنجليزية</span>' + stars('en', r.en || 0) + '</div><div class="rate"><span>الألمانية</span>' + stars('de', r.de || 0) + '</div>' + ((prev.en || prev.de) ? '<p class="mut">الأسبوع الماضي: إنجليزي ' + (prev.en || '–') + ' · ألماني ' + (prev.de || '–') + '</p>' : '') + '</section>';
+  return h;
+}
+function achRew() {
+  const ws = weekStats(new Date()), wk = weekKey(new Date()), life = lifetimePoints(), lv = levelOf(life);
+  let h = '<section class="card lvl"><div class="lv-h"><div class="seal big">' + ic('trophy', 26) + '</div><div><h3>مستواك: ' + lv.n + '</h3><p>إجمالي النقاط ' + life + (lv.next ? ' · التالي «' + lv.next[1] + '» عند ' + lv.next[0] : '') + '</p></div></div>' +
+    (lv.next ? '<div class="bar big"><i style="width:' + clamp((life - lv.from) / (lv.next[0] - lv.from) * 100, 2, 100) + '%"></i></div>' : '') + '</section>';
+  h += '<section class="card"><h3>مكافآت هذا الأسبوع</h3><p class="mut">وصلت إلى ' + Math.round(ws.pct * 100) + '%. لا خصم ولا عقاب أبداً: لو كان أسبوعاً أضعف، تبدأ الأسبوع القادم من جديد.</p>' +
+    TIERS.map((t, i) => { const ok = ws.pct >= t, cl = S.claimed[wk + '_' + i]; return '<div class="tier' + (ok ? ' ok' : '') + '"><div class="tp">' + Math.round(t * 100) + '%</div><div class="tt"><b>' + esc(S.rewards[i] || DEFAULT_REWARDS[i]) + '</b><small>' + (ok ? (cl ? 'تم الاستلام' : 'جاهزة للاستلام') : 'تحتاج ' + Math.max(0, Math.ceil(ws.max * t - ws.got)) + ' نقطة') + '</small></div>' + (ok ? '<button class="btn sm' + (cl ? ' ghost' : '') + '" data-act="claim" data-i="' + i + '">' + (cl ? 'تراجع' : 'استلمت') + '</button>' : '<span class="lock">' + ic('trophy', 18) + '</span>') + '</div>'; }).join('') +
+    '<p class="mut">يمكن تغيير نص المكافآت من «المزيد ← الإعدادات».</p></section>';
+  return h;
+}
+
+/* ---------- LANGUAGES ---------- */
+function viewLang() {
+  const L = LANG[ui.lang], idx = Math.floor(Date.now() / 864e5) % L.phrases.length, ph = L.phrases[idx], td = new Date().getDay();
+  let h = header('اللغات', 'عادة يومية ممتعة، وليست عبئاً');
+  h += '<div class="seg">' + [['en', 'English'], ['de', 'Deutsch']].map(x => '<button class="' + (ui.lang === x[0] ? 'on' : '') + '" data-act="lang" data-v="' + x[0] + '">' + x[1] + '</button>').join('') + '</div>';
+  h += '<section class="card phrase"><p class="mut">جملة اليوم</p><h2 dir="ltr">' + esc(ph[0]) + '</h2><p>' + esc(ph[1]) + '</p><small>قلها بصوت مرتفع 3 مرات، ثم استخدمها في جملة من عندك.</small></section>';
+  h += '<section class="card"><h3>خطة ' + L.n + ' · ' + L.min + '</h3><p class="mut">' + L.level + '</p><div class="lb-list">' + DAY_ORDER.map(d => '<div class="wkl' + (d === td ? ' today' : '') + '"><b>' + DAY_NAME[d] + '</b><span>' + L.week[d] + '</span></div>').join('') + '</div></section>';
+  h += '<section class="card"><h3>طريقة Shadowing في 4 خطوات</h3><ol class="steps"><li>استمع للجملة مرة كاملة بدون كلام.</li><li>استمع مرة ثانية وكرّر معها بنفس النطق والإيقاع.</li><li>سجّل صوتك على الهاتف (30–60 ثانية).</li><li>قارن تسجيلك بالأصل، واختر شيئاً واحداً تحسّنه غداً.</li></ol></section>';
+  h += '<section class="card"><h3>أفكار للمحادثة (10–15 دقيقة)</h3><ul class="dots">' + L.topics.map(x => '<li dir="auto">' + esc(x) + '</li>').join('') + '</ul></section>';
+  h += '<section class="card"><h3>مصادر مجانية وموثوقة</h3>' + L.sources.map(s => '<a class="src" href="' + s.u + '" target="_blank" rel="noopener noreferrer"><span class="bd">' + ic('link', 20) + '</span><span class="tx"><b dir="auto">' + esc(s.n) + '</b><small>' + s.d + '</small></span></a>').join('') + '</section>';
+  return h;
+}
+
+/* ---------- MORE ---------- */
+function stepper(type) { return '<div class="stp"><button data-act="dur" data-t="' + type + '" data-v="-15" aria-label="أقل">−</button><b>' + fd(lessonDur(type)) + '</b><button data-act="dur" data-t="' + type + '" data-v="15" aria-label="أكثر">+</button></div>'; }
+function viewMore() {
+  let h = '';
+  if (!ui.more) {
+    h = header('المزيد', 'أدوات وإعدادات');
+    const items = [['subjects', 'book', 'المواد الدراسية', 'خطة مذاكرة منفصلة لكل مادة'], ['month', 'calendar', 'المراجعة الشهرية', 'خطة الاستعداد للامتحانات'], ['exams', 'calendar', 'الامتحانات', 'نصف العام ونهاية العام'], ['cal', 'bell', 'ربط التقويم والتنبيهات', 'إرسال المواعيد إلى Google Calendar'], ['lessons', 'plus', 'الدروس والمواعيد', 'إضافة درس واستعادة التعديلات'], ['settings', 'gear', 'الإعدادات', 'الاسم، مدة الدروس، المكافآت'], ['about', 'info', 'التثبيت والتنبيهات', 'كيف تضيفه لشاشة الهاتف']];
+    return h + items.map(x => '<button class="card nav" data-act="more" data-v="' + x[0] + '"><span class="bd">' + ic(x[1], 22) + '</span><span class="tx"><b>' + x[2] + '</b><small>' + x[3] + '</small></span>' + ic('back', 18) + '</button>').join('');
+  }
+  const back = '<button class="back" data-act="more" data-v="">' + ic('back', 18) + ' رجوع</button>';
+  if (ui.more === 'subjects') {
+    return back + header('المواد الدراسية', 'جلسات 20–25 دقيقة تتبعها راحة 5 دقائق') +
+      '<section class="card ins"><h3>قاعدة المراجعة 1 · 3 · 7 · 30</h3><p>راجع كل درس بعد يوم، ثم 3 أيام، ثم أسبوع، ثم شهر. هذا يثبّت المعلومة أكثر من إعادة القراءة. بعد كل 3 جلسات تركيز خذ راحة 15 دقيقة.</p></section>' +
+      SUBJECTS.map(s => '<details class="card acc"><summary><span class="bd">' + ic(s.ic, 20) + '</span><span class="tx"><b>' + s.n + '</b><small>' + s.when + '</small></span></summary><ul class="dots">' + s.pts.map(p => '<li>' + p + '</li>').join('') + '</ul></details>').join('');
+  }
+  if (ui.more === 'month') {
+    const n = new Date(), mk = n.getFullYear() + '-' + pad(n.getMonth() + 1), st = S.month[mk] || {};
+    let done = 0, tot = 0; MONTH_PLAN.forEach((w, wi) => w.items.forEach((_, i) => { tot++; if (st[wi + '_' + i]) done++; }));
+    return back + header('المراجعة الشهرية', MONTHS_AR[n.getMonth()] + ' ' + n.getFullYear()) +
+      '<section class="card"><div class="lbr"><span>تقدم الشهر</span><div class="lbar"><i class="l1" style="width:' + Math.max(done / tot * 100, 3) + '%"></i></div><em>' + done + '/' + tot + '</em></div><p class="mut">دورة من 4 أسابيع تتكرر كل شهر. كلما اقترب الامتحان زد جلسات الأسبوع الرابع.</p></section>' +
+      MONTH_PLAN.map((w, wi) => '<section class="card"><h3>' + w.t + '</h3>' + w.items.map((it, i) => '<button class="task slim' + (st[wi + '_' + i] ? ' ok' : '') + '" data-act="mon" data-w="' + wi + '" data-i="' + i + '"><span class="chk">' + ic('check', 16) + '</span><span class="tx"><b>' + it + '</b></span></button>').join('') + '</section>').join('');
+  }
+  if (ui.more === 'cal') {
+    const items = calItems(), left = items.filter(i => !S.calDone[i.k]).length; let grp = '';
+    return back + header('ربط التقويم', 'تنبيهات تصل والتطبيق مغلق') +
+      '<section class="card form"><label>Gmail الخاص بالطالب<input type="email" inputmode="email" dir="ltr" data-set="gmail" value="' + esc(S.gmail) + '" placeholder="name@gmail.com"></label>' +
+      '<p class="mut">' + (validMail(S.gmail) ? 'سيُضاف هذا الإيميل كمدعو في كل حدث، فيصله في تقويمه.' : 'اكتب الإيميل ثم اضغط حفظ بالخروج من الخانة، وسيُضاف تلقائياً كمدعو.') + '</p></section>' +
+      '<section class="card ins"><h3>الخطوات</h3><ol class="steps"><li>اضغط «أضف» بجانب كل درس. يفتح Google Calendar بالموعد والتكرار الأسبوعي.</li><li>اضغط «حفظ» داخل التقويم.</li><li>في تطبيق Google Calendar على هاتف الطالب: الإعدادات ← الإشعارات الافتراضية ← 30 دقيقة، فتصله تنبيهات قبل كل درس.</li></ol></section>' +
+      '<button class="btn wide" data-act="calnext">' + ic('plus', 18) + ' أضف التالي (متبقٍّ ' + left + ')</button>' +
+      items.map(i => { const h = i.grp !== grp ? '<h3 class="gh">' + i.grp + '</h3>' : ''; grp = i.grp; return h + '<div class="card nav"><span class="tx"><b>' + esc(i.t) + '</b><small>' + i.sub + '</small></span><a class="btn sm' + (S.calDone[i.k] ? ' ghost' : '') + '" data-cal="' + i.k + '" href="' + i.url + '" target="_blank" rel="noopener noreferrer">' + (S.calDone[i.k] ? 'تمت ✓' : 'أضف') + '</a></div>'; }).join('') +
+      '<p class="note">لو غيّرت موعد درس أو أضفت امتحاناً، ارجع لهذه الشاشة وأضفه من جديد، وأزل الحدث القديم من التقويم.</p>';
+  }
+  if (ui.more === 'exams') {
+    const all = (S.exams || []).slice().sort((a, b) => a.date < b.date ? -1 : 1), now = new Date();
+    const phase = n => n > 30 ? 'مراجعة تراكمية هادئة' : n > 7 ? 'حل نماذج امتحانات ودفتر الأخطاء' : n >= 0 ? 'مراجعة خفيفة ونوم كافٍ، بلا سهر' : 'انتهى';
+    return back + header('الامتحانات', 'أضف نصف العام ونهاية العام') + '<button class="btn wide" data-act="addexam">' + ic('plus', 18) + ' إضافة امتحان</button>' +
+      (all.length ? all.map(x => { const n = examDays(x, now), dt = new Date(x.date + 'T00:00:00'); return '<div class="card nav' + (n < 0 ? ' past' : '') + '"><span class="tp">' + (n < 0 ? '✓' : n) + '</span><span class="tx"><b>' + esc(examLabel(x)) + '</b><small>' + dt.getDate() + ' ' + MONTHS_AR[dt.getMonth()] + ' ' + dt.getFullYear() + ' · ' + (n < 0 ? 'مضى' : n === 0 ? 'اليوم' : 'باقي ' + n + ' يوم') + ' · ' + phase(n) + '</small></span><button class="ibtn" data-act="delx" data-id="' + x.id + '" aria-label="حذف">' + ic('trash', 18) + '</button></div>'; }).join('') : '<p class="note">لم تُضف امتحانات بعد. ستظهر في الشاشة الرئيسية، وتصلك تنبيهات قبلها بـ 7 و3 و1 أيام.</p>');
+  }
+  if (ui.more === 'lessons') {
+    const ov = Object.keys(S.ovr).map(k => ({ k, o: S.ovr[k] }));
+    return back + header('دروس إضافية', 'تظهر في الجدول وتصلك تنبيهاتها') +
+      '<button class="btn wide" data-act="addlesson">' + ic('plus', 18) + ' إضافة درس جديد</button><p class="note">لتغيير موعد أي درس: افتح «اليوم» واضغط على الدرس ثم «تعديل الموعد».</p>' +
+      (ov.length ? '<section class="card"><h3>مواعيد معدّلة أو مخفية</h3>' + ov.map(x => '<div class="stp-r"><span>' + esc(x.o.t || x.k) + ' · ' + DAY_NAME[x.o.d] + (x.o.off ? ' (مخفي)' : '') + '</span><button class="btn ghost sm" data-act="restore" data-k="' + x.k + '">استعادة</button></div>').join('') + '</section>' : '') +
+      (S.custom.length ? S.custom.map(c => '<div class="card nav"><span class="bd">' + ic('star', 20) + '</span><span class="tx"><b>' + esc(c.title) + '</b><small>' + DAY_NAME[c.day] + ' · ' + ft(c.s) + ' – ' + ft(c.s + c.dur) + '</small></span><button class="ibtn" data-act="delc" data-id="' + c.id + '" aria-label="حذف">' + ic('trash', 18) + '</button></div>').join('') : '<p class="note">لا توجد دروس إضافية بعد. مناسبة لمواعيد الجمعة الجديدة.</p>');
+  }
+  if (ui.more === 'settings') {
+    const types = Object.keys(LESSON).filter(t => !LESSON[t].fixedDur);
+    return back + header('الإعدادات', 'يحفظها التطبيق على هذا الهاتف') +
+      '<section class="card form"><label>اسم الطالب<input data-set="name" value="' + esc(S.name) + '" placeholder="مثال: أحمد" maxlength="20"></label>' +
+      '<label>المظهر<select data-set="theme"><option value="auto"' + (S.theme === 'auto' ? ' selected' : '') + '>تلقائي</option><option value="light"' + (S.theme === 'light' ? ' selected' : '') + '>فاتح</option><option value="dark"' + (S.theme === 'dark' ? ' selected' : '') + '>داكن</option></select></label>' +
+      '<label class="chk-l"><input type="checkbox" data-set="alerts"' + (S.alerts ? ' checked' : '') + '> تنبيهات داخل التطبيق أثناء فتحه</label></section>' +
+      '<section class="card"><h3>مدة كل درس</h3><p class="mut">المدة الحالية ساعتان لكل درس. عدّلها عند الحاجة. الأونلاين ثابت من 10:30 إلى 11:30 م.</p>' +
+      types.map(t => '<div class="stp-r"><span>' + LESSON[t].n + '</span>' + stepper(t) + '</div>').join('') + '</section>' +
+      '<section class="card form"><h3>نصوص المكافآت</h3>' + [0, 1, 2].map(i => '<label>عند ' + Math.round(TIERS[i] * 100) + '%<input data-set="rw' + i + '" value="' + esc(S.rewards[i] || '') + '" maxlength="60"></label>').join('') + '</section>' +
+      '<button class="btn ghost wide danger" data-act="reset1">مسح كل التقدم والبدء من جديد</button>';
+  }
+  return back + header('التثبيت والتنبيهات', 'اجعله تطبيقاً على الهاتف') +
+    '<section class="card"><h3>إضافة التطبيق لشاشة الهاتف</h3><ul class="dots"><li><b>آيفون:</b> افتح الرابط في Safari ← زر المشاركة ← «إضافة إلى الشاشة الرئيسية».</li><li><b>أندرويد:</b> افتح الرابط في Chrome ← القائمة ⋮ ← «إضافة إلى الشاشة الرئيسية».</li></ul></section>' +
+    '<section class="card"><h3>عن التنبيهات</h3><p>تنبيهات التطبيق تعمل أثناء فتحه فقط. للتنبيهات الموثوقة وهو مغلق، تُضاف مواعيد الدروس كأحداث متكررة في تقويم الهاتف: قبل الدرس بـ 30 دقيقة، وموعد الخروج، وموعد النوم.</p></section>' +
+    '<section class="card"><h3>طريقة الاستخدام اليومية</h3><ol class="steps"><li>افتح «اليوم» وشاهد الدرس القادم وموعد الخروج.</li><li>اضغط على أي فترة لمعرفة سبب اختيارها.</li><li>في آخر اليوم علّم إنجازاتك في «الإنجاز».</li><li>الجمعة: راجع «الأسبوع» وحدد نقطة تحسين واحدة.</li></ol></section>';
+}
+
+/* ---------- render ---------- */
+function render() {
+  document.body.dataset.tab = ui.tab;
+  $$('.tabs button').forEach(b => { const on = b.dataset.v === ui.tab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+  const v = $('#view');
+  v.innerHTML = ({ today: viewToday, week: viewWeek, ach: viewAch, lang: viewLang, more: viewMore })[ui.tab]();
+  if (ui.tab === 'today') { paintHero(); paintTL(); }
+}
+function go(tab) { ui.tab = tab; if (tab !== 'more') ui.more = null; render(); window.scrollTo(0, 0); }
+
+/* ---------- sheets ---------- */
+function openSheet(html, name) {
+  ui.sheet = name || 'x';
+  const sb = $('#sb'); $('#sh').innerHTML = '<div class="grab"></div>' + html; sb.classList.add('on');
+}
+function closeSheet() { ui.sheet = null; $('#sb').classList.remove('on'); }
+function evSheet(k) {
+  const e = dayEvents(ui.day).find(x => x.k === k); if (!e) return;
+  const L = e.type && LESSON[e.type];
+  openSheet('<div class="sh-h">' + badge(e) + '<div><h3>' + esc(e.title) + '</h3><p>' + (e.point ? ft(e.s) : ft(e.s) + ' – ' + ft(e.e) + ' · ' + fd(e.e - e.s)) + ' · ' + KIND[e.kind] + '</p></div></div>' +
+    '<p class="why"><b>لماذا هذا الوقت؟</b><br>' + e.why + '</p>' +
+    (e.fixed ? editBlock(e) : '') +
+    '<button class="btn wide" data-act="sheetclose">تم</button>', 'ev:' + k);
+}
+function editBlock(e) {
+  const hm = pad(Math.floor(e.s / 60)) + ':' + pad(e.s % 60), isL = !!e.lesson, du = e.e - e.s;
+  const opts = [30, 45, 60, 75, 90, 105, 120, 150, 180].map(v => '<option value="' + v + '"' + (v === du ? ' selected' : '') + '>' + fd(v) + '</option>').join('');
+  return '<div class="form edit"><h3>تعديل الموعد</h3><label>الوقت<input id="ed-s" type="time" value="' + hm + '"></label>' +
+    (isL ? '<label>المدة<select id="ed-u">' + opts + '</select></label>' : '') +
+    '<button class="btn wide" data-act="saveedit" data-k="' + e.k + '">حفظ التعديل</button>' +
+    (e.custom ? '<button class="btn ghost wide danger" data-act="delc" data-id="' + e.id + '">' + ic('trash', 16) + ' حذف هذا الدرس</button>' : '<button class="btn ghost wide danger" data-act="hideev" data-k="' + e.k + '">إخفاء من هذا اليوم</button>') +
+    (e.ovr ? '<button class="btn ghost wide" data-act="restore" data-k="' + e.k + '">استعادة الموعد الأصلي</button>' : '') +
+    '<p class="mut">لو تداخل الموعد الجديد مع فترة أخرى تُخفى تلك الفترة تلقائياً.</p></div>';
+}
+function examSheet() {
+  openSheet('<h3>إضافة امتحان</h3><div class="form"><label>النوع<select id="ex-k"><option value="mid">امتحان نصف العام</option><option value="fin">امتحان نهاية العام</option><option value="mon">اختبار شهري</option></select></label>' +
+    '<label>المادة<select id="ex-s"><option value="">كل المواد</option>' + SUBJECTS.map(s => '<option>' + s.n.replace(' (المدرسة)', '') + '</option>').join('') + '</select></label>' +
+    '<label>التاريخ<input id="ex-d" type="date"></label></div><button class="btn wide" data-act="saveexam">حفظ الامتحان</button>', 'exam');
+}
+function addLessonSheet() {
+  openSheet('<h3>إضافة درس جديد</h3><div class="form"><label>اسم الدرس<input id="al-t" placeholder="مثال: Math مع أ. محمد" maxlength="30"></label>' +
+    '<label>اليوم<select id="al-d">' + DAY_ORDER.map(d => '<option value="' + d + '"' + (d === 5 ? ' selected' : '') + '>' + DAY_NAME[d] + '</option>').join('') + '</select></label>' +
+    '<label>الوقت<input id="al-s" type="time" value="16:00"></label>' +
+    '<label>المدة<select id="al-u"><option value="30">30 دقيقة</option><option value="45">45 دقيقة</option><option value="60">ساعة</option><option value="90">ساعة ونصف</option><option value="120" selected>ساعتان</option></select></label>' +
+    '<label class="chk-l"><input id="al-o" type="checkbox" checked> يحتاج انتقالاً (15 دقيقة)</label></div>' +
+    '<button class="btn wide" data-act="savelesson">حفظ الدرس</button>', 'add');
+}
+
+/* ---------- pomodoro ---------- */
+const MODES = { a: { f: 25, b: 5, l: '25 + 5' }, b: { f: 20, b: 5, l: '20 + 5' }, c: { f: 15, b: 3, l: '15 + 3' } };
+const P = { mode: 'a', phase: 'focus', run: false, endAt: 0, remain: 25 * 60, total: 25 * 60, cycle: 0 };
+function pLeft() { return P.run ? Math.max(0, (P.endAt - Date.now()) / 1000) : P.remain; }
+function pFinish() {
+  const m = MODES[P.mode];
+  if (P.phase === 'focus') {
+    const k = keyOf(new Date()); S.done[k] = S.done[k] || {}; S.done[k].focus = (S.done[k].focus || 0) + 1; save();
+    P.cycle++; P.phase = 'break'; P.total = (P.cycle % 3 === 0 ? 15 : m.b) * 60; P.remain = P.total; P.endAt = Date.now() + P.total * 1000; P.run = true;
+    toast('أحسنت! انتهت جلسة التركيز. خذ راحة الآن');
+  } else {
+    P.phase = 'focus'; P.total = m.f * 60; P.remain = P.total; P.run = false;
+    toast('انتهت الراحة. جاهز لجلسة جديدة؟');
+  }
+  if (ui.sheet === 'pomo') pomoSheet();
+}
+function pomoSheet() {
+  const left = pLeft(), brk = P.phase === 'break';
+  openSheet('<h3>جلسة تركيز</h3><div class="rgw pm">' + '<div id="pm-ring">' + ring(1 - left / P.total, 168, 72, '', brk ? 'teal' : 'gold') + '</div><div class="rgc"><b id="pm-t" dir="ltr">' + pad(Math.floor(left / 60)) + ':' + pad(Math.floor(left % 60)) + '</b><small id="pm-p">' + (brk ? 'وقت الراحة' : 'وقت التركيز') + '</small></div></div>' +
+    '<p class="why" id="pm-tip">' + (brk ? 'قم وتحرّك، اشرب ماء، وابتعد عن الشاشة. لا تذاكر الآن.' : 'اترك الهاتف بعيداً، وركّز على مهمة واحدة فقط.') + '</p>' +
+    '<div class="pm-dots">' + [0, 1, 2].map(i => '<i class="' + (i < P.cycle % 3 || (P.cycle > 0 && P.cycle % 3 === 0 && brk) ? 'on' : '') + '"></i>').join('') + '</div>' +
+    '<div class="seg sm">' + Object.keys(MODES).map(k => '<button class="' + (P.mode === k ? 'on' : '') + '" data-act="pmode" data-v="' + k + '"' + (P.run || P.phase !== 'focus' ? ' disabled' : '') + '>' + MODES[k].l + '</button>').join('') + '</div>' +
+    '<div class="pm-btns"><button class="btn" data-act="pgo">' + ic(P.run ? 'pause' : 'play', 18) + ' ' + (P.run ? 'إيقاف مؤقت' : 'ابدأ') + '</button><button class="btn ghost" data-act="preset">' + ic('reset', 18) + ' إعادة</button></div>' +
+    '<p class="mut">جلسات اليوم: <b>' + ((S.done[keyOf(new Date())] || {}).focus || 0) + '</b>. بعد كل 3 جلسات تأخذ راحة 15 دقيقة.</p>', 'pomo');
+}
+function paintPomo() {
+  if (ui.sheet !== 'pomo') return;
+  const left = pLeft(), t = $('#pm-t'); if (!t) return;
+  t.textContent = pad(Math.floor(left / 60)) + ':' + pad(Math.floor(left % 60));
+  const r = $('#pm-ring'); if (r) r.innerHTML = ring(1 - left / P.total, 168, 72, '', P.phase === 'break' ? 'teal' : 'gold');
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const a = el.dataset.act, D = el.dataset;
+  if (a === 'sheetclose') { if (el.id === 'sb' && e.target !== el) return; closeSheet(); return; }
+  switch (a) {
+    case 'tab': go(D.v); break;
+    case 'day': ui.day = +D.d; ui.scrolled = false; render(); break;
+    case 'goday': ui.day = +D.d; go('today'); break;
+    case 'ev': evSheet(D.k); break;
+    case 'ach': ui.ach = D.v; render(); break;
+    case 'achday': ui.achIdx = +D.i; render(); break;
+    case 'task': {
+      const dt = weekDates(new Date())[ui.achIdx], k = keyOf(dt); S.done[k] = S.done[k] || {};
+      S.done[k][D.id] = !S.done[k][D.id]; save(); render();
+      if (S.done[k][D.id] && dayScore(dt).pct >= 1) toast('يوم ذهبي! أنجزت كل مهام اليوم', true);
+      break;
+    }
+    case 'joker': {
+      const wd = weekDates(new Date()), dt = wd[ui.achIdx], k = keyOf(dt);
+      if (!S.joker[k] && wd.some(x => S.joker[keyOf(x)])) { toast('يوم الراحة (الجوكر) مرة واحدة في الأسبوع', true); break; }
+      if (S.joker[k]) delete S.joker[k]; else S.joker[k] = true; save(); render(); break;
+    }
+    case 'rate': { const wk = weekKey(new Date()); S.ratings[wk] = S.ratings[wk] || {}; S.ratings[wk][D.l] = +D.n; save(); render(); break; }
+    case 'claim': { const key = weekKey(new Date()) + '_' + D.i; if (S.claimed[key]) delete S.claimed[key]; else S.claimed[key] = true; save(); render(); break; }
+    case 'lang': ui.lang = D.v; render(); break;
+    case 'more': ui.more = D.v || null; render(); window.scrollTo(0, 0); break;
+    case 'mon': { const n = new Date(), mk = n.getFullYear() + '-' + pad(n.getMonth() + 1); S.month[mk] = S.month[mk] || {}; const kk = D.w + '_' + D.i; S.month[mk][kk] = !S.month[mk][kk]; save(); render(); break; }
+    case 'dur': {
+      const cur = lessonDur(D.t); S.dur[D.t] = clamp(cur + +D.v, 30, 180); save(); clearCache();
+      if (ui.sheet && ui.sheet.indexOf('ev:') === 0) evSheet(ui.sheet.slice(3)); render(); break;
+    }
+    case 'addlesson': addLessonSheet(); break;
+    case 'addexam': examSheet(); break;
+    case 'saveexam': {
+      const d = $('#ex-d').value; if (!d) { toast('اختر تاريخ الامتحان', true); break; }
+      S.exams.push({ id: Date.now(), kind: $('#ex-k').value, subj: $('#ex-s').value, date: d }); save(); closeSheet(); render(); toast('تمت إضافة الامتحان', true); break;
+    }
+    case 'delx': S.exams = S.exams.filter(x => String(x.id) !== D.id); save(); render(); break;
+    case 'saveedit': {
+      const e = dayEvents(ui.day).find(x => x.k === D.k); if (!e) break;
+      const [hh, mm] = ($('#ed-s').value || '00:00').split(':').map(Number), s = hh * 60 + mm, u = $('#ed-u') ? +$('#ed-u').value : 0;
+      if (e.custom) { const c = S.custom.find(x => x.id === e.id); c.s = s; if (u) c.dur = u; }
+      else S.ovr[e.k] = { s, dur: u || undefined, t: e.title, d: ui.day };
+      save(); clearCache(); closeSheet(); render(); toast('تم حفظ التعديل', true); break;
+    }
+    case 'hideev': { const e = dayEvents(ui.day).find(x => x.k === D.k); if (e) { S.ovr[e.k] = { off: true, t: e.title, d: ui.day }; save(); clearCache(); closeSheet(); render(); } break; }
+    case 'restore': delete S.ovr[D.k]; save(); clearCache(); closeSheet(); render(); break;
+    case 'savelesson': {
+      const title = $('#al-t').value.trim() || 'درس جديد', day = +$('#al-d').value, tm = $('#al-s').value || '16:00', dur = +$('#al-u').value, out = $('#al-o').checked;
+      const [hh, mm] = tm.split(':').map(Number);
+      S.custom.push({ id: Date.now(), title, day, s: hh * 60 + mm, dur, out }); save(); clearCache(); closeSheet(); ui.day = day;
+      if (ui.tab !== 'more') ui.tab = 'today'; render(); toast('تمت إضافة «' + title + '» إلى ' + DAY_NAME[day], true); break;
+    }
+    case 'delc': S.custom = S.custom.filter(c => String(c.id) !== D.id); save(); clearCache(); closeSheet(); render(); break;
+    case 'pomo': pomoSheet(); break;
+    case 'calnext': { const i = calItems().find(x => !S.calDone[x.k]); if (!i) { toast('أضفت كل المواعيد', true); break; } S.calDone[i.k] = true; save(); window.open(i.url, '_blank', 'noopener'); setTimeout(render, 400); break; }
+    case 'pgo': if (P.run) { P.remain = pLeft(); P.run = false; } else { P.endAt = Date.now() + P.remain * 1000; P.run = true; } pomoSheet(); break;
+    case 'preset': { const m = MODES[P.mode]; P.run = false; P.phase = 'focus'; P.total = m.f * 60; P.remain = P.total; P.cycle = 0; pomoSheet(); break; }
+    case 'pmode': if (!P.run && P.phase === 'focus') { P.mode = D.v; P.total = MODES[D.v].f * 60; P.remain = P.total; pomoSheet(); } break;
+    case 'reset1': openSheet('<h3>مسح كل التقدم؟</h3><p class="why">سيتم حذف النقاط والإنجازات والتقييمات. لا يمكن التراجع. (الجدول وإعداداتك تبقى كما هي.)</p><button class="btn wide danger" data-act="reset2">نعم، امسح التقدم</button><button class="btn ghost wide" data-act="sheetclose">إلغاء</button>', 'reset'); break;
+    case 'reset2': S.done = {}; S.joker = {}; S.ratings = {}; S.claimed = {}; S.month = {}; save(); closeSheet(); render(); toast('تم مسح التقدم. بداية جديدة!', true); break;
+  }
+});
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-cal]'); if (!a) return;
+  S.calDone[a.dataset.cal] = true; save(); setTimeout(render, 400);
+});
+document.addEventListener('change', e => {
+  const el = e.target.closest('[data-set]'); if (!el) return;
+  const k = el.dataset.set;
+  if (k === 'name') S.name = el.value.trim();
+  else if (k === 'exam') S.exam = el.value;
+  else if (k === 'gmail') { S.gmail = el.value.trim(); if (S.gmail && !validMail(S.gmail)) toast('الإيميل غير صحيح. تأكد من كتابته', true); save(); render(); return; }
+  else if (k === 'theme') { S.theme = el.value; applyTheme(); }
+  else if (k === 'alerts') S.alerts = el.checked;
+  else if (k.indexOf('rw') === 0) S.rewards[+k.slice(2)] = el.value.trim();
+  save();
+});
+document.addEventListener('pointerdown', () => { try { audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); audioCtx.state === 'suspended' && audioCtx.resume(); } catch (e) { } }, { once: true });
+
+/* ---------- boot ---------- */
+function boot() {
+  $('#tabs').innerHTML = TABS.map(t => '<button role="tab" data-act="tab" data-v="' + t[0] + '">' + ic(t[2], 22) + '<span>' + t[1] + '</span></button>').join('');
+  applyTheme();
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme); } catch (e) { }
+  render();
+  setTimeout(() => { const c = $('.row.cur'); if (c && !ui.scrolled) { ui.scrolled = true; c.scrollIntoView({ block: 'center' }); } }, 120);
+  let tickN = 0;
+  setInterval(() => {
+    tickN++;
+    const now = new Date();
+    if (P.run && Date.now() >= P.endAt) pFinish();
+    paintPomo();
+    if (ui.tab === 'today' && ui.day === now.getDay()) { paintHero(); if (tickN % 30 === 0) paintTL(); }
+    if (tickN % 5 === 0) checkAlerts(now);
+  }, 1000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { if (ui.tab === 'today') { paintHero(); paintTL(); } } });
+}
+
+boot();
+</script>
+</body>
+</html>
